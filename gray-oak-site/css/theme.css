@@ -1,0 +1,29 @@
+/* Gray Oak Advisory — brand theme: charcoal/slate + gold, Playfair Display + Inter */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  --color-bg-page: #FAF8F5;
+  --color-bg-dark: #2E3338;      /* Slate */
+  --color-bg-dark-strip: #23272B;
+  --color-border: #E4DFD6;
+
+  --color-text-dark: #2E3338;
+  --color-text-on-dark-muted: #C9CCCF;
+
+  --color-accent: #B99B5E;       /* Gold Leaf */
+  --color-on-accent: #2E3338;
+
+  --color-pipeline-icon: #35536B; /* Steel Blue */
+  --color-pipeline-line: #B99B5E;
+
+  --color-card-bg: #2F4A3F;       /* Deep Green */
+  --color-card-text: #FAF8F5;
+
+  --hero-rings:
+    repeating-radial-gradient(circle at 20% 50%, rgba(185,155,94,0.10) 0 2px, transparent 2px 14px),
+    repeating-radial-gradient(circle at 78% 45%, rgba(185,155,94,0.08) 0 2px, transparent 2px 14px);
+}

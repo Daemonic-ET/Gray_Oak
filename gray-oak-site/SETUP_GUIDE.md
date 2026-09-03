@@ -1,0 +1,165 @@
+# Gray Oak Advisory — Website Starter & Setup Guide
+
+This folder contains a working starter homepage for grayoakadvisory.com: dark
+slate + gold brand palette (Gray Oak, Slate, Deep Green, Steel Blue, Warm Taupe,
+Gold Leaf), Playfair Display for headings/accents, Inter for body text — this is
+the direction you confirmed.
+
+**This is a homepage only.** About, Services, Who We Help, Insights, and Contact
+are linked from the nav but not built yet — that's the natural next step from here.
+
+You do not need to know how to code to use this guide. Every step below is a
+click, a typed command, or copy/paste.
+
+---
+
+## What's in this folder
+
+```
+gray-oak-site/
+├── index.html      ← the homepage
+├── css/
+│   ├── style.css     ← layout/structure
+│   └── theme.css      ← brand colors + fonts (Playfair Display + Inter)
+├── js/
+│   └── main.js         ← mobile menu button + the scroll-grown tree effect
+└── assets/
+    └── logo.png          ← logo cropped from your mockup (placeholder — see note below)
+```
+
+> **Note on the logo:** `assets/logo.png` was cropped directly out of a mockup
+> screenshot so the page has *something* in the header/footer right now. It has
+> a faint off-white background instead of true transparency. Ask whoever
+> designed the brand board for the actual logo file (ideally `.svg` or a
+> transparent `.png`) and drop it in under the same filename to instantly
+> upgrade every page.
+
+---
+
+## Part 1 — See it on your own computer (no install needed yet)
+
+Before touching VS Code or GitHub, just double-click `index.html` — it will
+open directly in your browser. That's the fastest way to look at it right now.
+
+---
+
+## Part 2 — Install the tools
+
+You only need to do this once, ever.
+
+1. **Install VS Code** (the editor): go to https://code.visualstudio.com/, click
+   Download, run the installer with default options.
+2. **Install Git** (the tool that talks to GitHub): go to https://git-scm.com/downloads,
+   download for your operating system, run the installer with default options
+   (clicking "Next" through everything is fine).
+3. **Create a GitHub account** if you don't have one: https://github.com/signup.
+4. **Create a Render account**: https://render.com/ — sign up, and choose "Sign up
+   with GitHub" so the two are linked from the start.
+
+---
+
+## Part 3 — Open the project in VS Code
+
+1. Open VS Code.
+2. Go to **File → Open Folder…** and select this `gray-oak-site` folder.
+3. In the Extensions panel (the four-square icon on the left sidebar), search for
+   **"Live Server"** by Ritwick Dey and click Install. This lets you preview the
+   site with auto-refresh as you (or I) edit it.
+4. Right-click `index.html` in the file list and choose **"Open with Live
+   Server"** — it opens in your browser and refreshes automatically every time a
+   file is saved.
+
+---
+
+## Part 4 — Put it on GitHub
+
+1. In GitHub, click the **+** icon top-right → **New repository**. Name it
+   something like `gray-oak-website`. Leave it Public or Private (either works
+   with Render). Do **not** check "Add a README" — this folder already has one.
+   Click **Create repository**.
+2. Back in VS Code, open the built-in terminal: **Terminal → New Terminal**.
+3. Type these commands one at a time, pressing Enter after each (replace the
+   URL in the fourth line with the one GitHub shows you on the page after step 1
+   — it will look like `https://github.com/yourname/gray-oak-website.git`):
+
+   ```
+   git init
+   git add .
+   git commit -m "Initial homepage draft"
+   git branch -M main
+   git remote add origin https://github.com/yourname/gray-oak-website.git
+   git push -u origin main
+   ```
+
+4. Refresh the GitHub page — your files should now be there.
+
+If Git asks you to sign in the first time, it will open a browser window to
+authenticate with GitHub — just approve it there.
+
+---
+
+## Part 5 — Put it live on the internet with Render
+
+1. In Render, click **New +** → **Static Site**.
+2. Connect your GitHub account if prompted, then select the `gray-oak-website`
+   repository.
+3. Fill in the settings:
+   - **Build Command:** leave blank (there's nothing to build — it's plain
+     HTML/CSS/JS).
+   - **Publish Directory:** `.` (a single period, meaning "the root of the repo").
+4. Click **Create Static Site**. Render will give you a free URL like
+   `gray-oak-website.onrender.com` within a minute or two, and it will load
+   `index.html` automatically.
+5. Once you're happy and ready to use the real domain: in Render, go to the
+   site's **Settings → Custom Domains** and follow the instructions to point
+   `www.grayoakadvisory.com` at it (this updates DNS records wherever the domain
+   is registered).
+
+From now on, **every time you push new changes to GitHub, Render automatically
+redeploys the live site within a minute or two** — you never have to manually
+upload anything again.
+
+---
+
+## Making changes going forward
+
+For any future change — new copy, a new page, swapping in real logos and
+photos, adjusting colors — the easiest workflow with no coding experience is:
+
+1. Tell me (Claude) what you want changed, in plain language.
+2. I'll edit the actual files for you.
+3. In VS Code, open the Source Control panel (the icon with the branching lines)
+   — it will show the files that changed. Type a short message like "update
+   hero text" and click the checkmark/**Commit**, then click **Sync Changes**
+   (or run `git add .`, `git commit -m "..."`, `git push` in the terminal, same
+   as above).
+4. Render redeploys automatically — refresh the live URL after a minute.
+
+---
+
+## The growing tree (left border)
+
+The left edge has a small canopy right at the top of the light content section
+(it deliberately doesn't appear over the dark hero or the black icon strip),
+and a root system that **draws itself in as you scroll**, spreading out fully
+right around the footer — a nod to "Deep roots. Clear judgment. Strong
+outcomes." This is done with plain SVG + a bit of JavaScript in `js/main.js`
+(look for `tree-trunk-path` and the scroll listener) — no libraries required.
+It's hidden on narrow phone screens (under 900px wide) to keep mobile layouts
+uncluttered; let me know if you'd like a scaled-down mobile version instead.
+
+## What's still placeholder / next steps
+
+- The "Featured Insights" cards are empty boxes with generic titles — swap in
+  real article titles, images, and links once you have content, or tell me what
+  they should say and I'll fill them in.
+- The four icon-strip labels (Trusted Advisors, Mission Focused, Built for
+  Durability, Outcome Driven) are pulled straight from the brand board — replace
+  if you want different language.
+- About, Services, Who We Help, Insights, and Contact pages aren't built yet —
+  the next step is building those out with the same header/footer so
+  navigation works site-wide.
+- The contact form mentioned in the site questionnaire isn't wired up yet —
+  Render's static hosting doesn't run backend code, so the simplest no-code
+  option is a free form service like Formspree (https://formspree.io) plugged
+  into a `<form>` tag — I can wire this in when you're ready.
