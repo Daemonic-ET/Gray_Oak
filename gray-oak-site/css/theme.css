@@ -9,6 +9,7 @@
   --color-bg-page: #FAF8F5;
   --color-bg-dark: #2E3338;      /* Slate */
   --color-bg-dark-strip: #23272B;
+  --color-bg-footer: #202020;    /* Footer — flat dark charcoal */
   --color-border: #E4DFD6;
 
   --color-text-dark: #2E3338;
@@ -23,7 +24,8 @@
   --color-card-bg: #2F4A3F;       /* Deep Green */
   --color-card-text: #FAF8F5;
 
-  --hero-rings:
-    repeating-radial-gradient(circle at 20% 50%, rgba(185,155,94,0.10) 0 2px, transparent 2px 14px),
-    repeating-radial-gradient(circle at 78% 45%, rgba(185,155,94,0.08) 0 2px, transparent 2px 14px);
+  /* Hero background: real tree-ring texture with a slate overlay on top so
+     white headline text stays readable no matter where it falls on the image. */
+  --hero-bg-overlay: linear-gradient(180deg, rgba(46,51,56,0.55) 0%, rgba(46,51,56,0.8) 100%);
+  --hero-bg-image: url('../assets/hero-bg.jpg');
 }

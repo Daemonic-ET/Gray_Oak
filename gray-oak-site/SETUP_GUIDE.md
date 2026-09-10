@@ -24,15 +24,23 @@ gray-oak-site/
 ├── js/
 │   └── main.js         ← mobile menu button + the scroll-grown tree effect
 └── assets/
-    └── logo.png          ← logo cropped from your mockup (placeholder — see note below)
+    ├── logo.png          ← header logo, cropped from your mockup (placeholder — see note below)
+    ├── footer-logo.jpg    ← footer logo (the dark/glowing tree lockup, flattened onto the footer's charcoal color)
+    └── hero-bg.jpg        ← the tree-ring texture behind the hero headline
 ```
 
-> **Note on the logo:** `assets/logo.png` was cropped directly out of a mockup
-> screenshot so the page has *something* in the header/footer right now. It has
-> a faint off-white background instead of true transparency. Ask whoever
-> designed the brand board for the actual logo file (ideally `.svg` or a
-> transparent `.png`) and drop it in under the same filename to instantly
-> upgrade every page.
+> **Note on the header logo:** `assets/logo.png` was cropped directly out of a
+> mockup screenshot so the header has *something* right now. It has a faint
+> off-white background instead of true transparency. Ask whoever designed the
+> brand board for the actual logo file (ideally `.svg` or a transparent
+> `.png`) and drop it in under the same filename to instantly upgrade the
+> header.
+>
+> The **footer** (`assets/footer-logo.jpg`) uses the real designer logo — the
+> dark, glowing tree lockup, which came with a true transparent background —
+> flattened onto the footer's own charcoal color (`#202020`, set as
+> `--color-bg-footer` in `css/theme.css`) so it sits directly on the footer
+> with no box or halo around it. No placeholder there.
 
 ---
 
@@ -136,6 +144,15 @@ photos, adjusting colors — the easiest workflow with no coding experience is:
 4. Render redeploys automatically — refresh the live URL after a minute.
 
 ---
+
+## The hero background
+
+The dark hero at the top uses your real tree-ring texture image
+(`assets/hero-bg.jpg`) with a slate-colored gradient laid over it (defined as
+`--hero-bg-overlay` in `css/theme.css`) so the white headline stays readable no
+matter where the text lands on the pattern. To swap in a different background
+image later, just replace `assets/hero-bg.jpg` with a new file of the same
+name (or update the filename in the `--hero-bg-image` line in `css/theme.css`).
 
 ## The growing tree (left border)
 
