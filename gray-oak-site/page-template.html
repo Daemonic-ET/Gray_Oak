@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 1. Set the page title -->
+<title>Page Title — Gray Oak Advisory</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER — identical on every page. Copy as-is.
+       Note the nav hrefs: "About" and "Contact" work the same on
+       every page (About links to about.html, Contact scrolls to
+       this page's own footer). "Services", "Who We Help", and
+       "Insights" point back to sections that only exist on the
+       homepage, so they're written as index.html#section — unless
+       THIS page *is* index.html, in which case use the local
+       #section form instead (see index.html for that version).
+       ============================================================ -->
+  <header class="site-header">
+    <a href="index.html" class="logo"><img src="assets/logo.png" alt="Gray Oak Advisory"></a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#who-we-help">Who We Help</a></li>
+        <li><a href="index.html#insights">Insights</a></li>
+        <li class="nav-contact-mobile"><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn-outline">Contact</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ============================================================
+       HERO — shorter variant for interior pages (hero--sub).
+       2. Edit the eyebrow, heading, and paragraph below.
+       ============================================================ -->
+  <section class="hero hero--sub">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Section Label</div>
+      <h1>Page Headline Goes Here.</h1>
+      <p>One or two sentences introducing this page, in the same voice as the homepage.</p>
+      <a href="#contact" class="btn-solid">Start a Conversation</a>
+    </div>
+  </section>
+
+  <div class="tree-scroll-wrap">
+    <!-- Growing tree rail — identical on every page. Copy as-is. -->
+    <div class="tree-rail" aria-hidden="true">
+      <svg viewBox="0 0 240 2600" preserveAspectRatio="none">
+        <g class="tree-canopy" fill="currentColor" fill-opacity="0.55">
+          <circle cx="90" cy="50" r="34"/>
+          <circle cx="130" cy="30" r="28"/>
+          <circle cx="150" cy="70" r="26"/>
+          <circle cx="105" cy="85" r="24"/>
+        </g>
+        <path id="tree-trunk-path" d="
+          M118,110
+          C 106,450 132,800 114,1150
+          C 100,1450 130,1700 116,1950
+          C 104,2080 128,2150 120,2200
+          M120,2200 C 95,2300 55,2360 15,2440
+          M120,2200 C 145,2300 185,2360 225,2440
+          M120,2200 C 105,2280 85,2340 65,2420
+          M120,2200 C 135,2280 155,2340 175,2420
+        " fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- ==========================================================
+         3. PAGE CONTENT — replace everything between here and the
+         footer with whatever this page needs. Two ready-made
+         section types below (delete the one you don't use, or
+         both, or add more of either) — they use the same visual
+         language as the homepage so any combination will match:
+
+         .content-section + .prose-block  → a heading and body copy
+         .cards-section + .cards-grid     → a grid of short cards
+         ========================================================== -->
+
+    <section class="content-section">
+      <h2 class="cards-heading">Section Heading</h2>
+      <div class="prose-block">
+        <p>Body copy goes here. This block is left-aligned and width-constrained for readability, centered on the page.</p>
+        <p>Add as many paragraphs as the section needs.</p>
+      </div>
+    </section>
+
+    <section class="cards-section">
+      <h2 class="cards-heading">Another Section Heading</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <div>
+            <h3>Card title</h3>
+            <p>Short supporting line.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+        </div>
+        <div class="card">
+          <div>
+            <h3>Card title</h3>
+            <p>Short supporting line.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+        </div>
+        <div class="card">
+          <div>
+            <h3>Card title</h3>
+            <p>Short supporting line.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+
+    <!-- FOOTER — identical on every page. Copy as-is. -->
+    <footer class="site-footer" id="contact">
+      <div class="footer-grid">
+        <div class="footer-logo">
+          <img src="assets/footer-logo.jpg" alt="Gray Oak Advisory">
+        </div>
+        <div class="footer-nav-cols">
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#services">What We Do</a></li>
+              <li><a href="about.html">Who We Are</a></li>
+              <li><a href="#contact">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <ul>
+              <li><a href="mailto:ask@grayoakadvisory.com">Email</a></li>
+              <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -12,6 +12,18 @@ body {
   color: var(--color-text-dark);
   background: var(--color-bg-page);
   line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Flex items shrink below their content size by default once they have
+   overflow:hidden (like .hero) — without this, tall pages could squash
+   the hero instead of just growing past 100vh. min-height:auto restores
+   the normal "don't shrink below your content" behavior. */
+.site-header,
+.hero {
+  flex-shrink: 0;
 }
 
 img { max-width: 100%; display: block; }
@@ -28,6 +40,9 @@ a { text-decoration: none; color: inherit; }
 
 .tree-scroll-wrap {
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .tree-rail {
@@ -182,6 +197,10 @@ a { text-decoration: none; color: inherit; }
 
 .hero-inner { max-width: 1200px; margin: 0 auto; min-height: 380px; }
 
+/* Shorter hero for interior pages (About, Services, etc.) — same look, less
+   empty vertical space since these pages don't need the full homepage hero height. */
+.hero--sub .hero-inner { min-height: 200px; }
+
 .hero-eyebrow {
   color: var(--color-accent);
   font-weight: 600;
@@ -271,6 +290,31 @@ a { text-decoration: none; color: inherit; }
   font-size: 1.7rem;
   margin-bottom: 44px;
   color: var(--color-text-dark);
+}
+
+/* Reusable left-aligned prose block for interior-page body copy (story
+   sections, long-form text) — sections like .pipeline-section center their
+   heading, but paragraphs read better left-aligned and width-constrained. */
+.prose-block {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-text-dark);
+}
+
+.prose-block p { margin-bottom: 20px; }
+.prose-block p:last-child { margin-bottom: 0; }
+.prose-block strong { color: var(--color-pipeline-icon); }
+
+/* Generic centered-heading + body-copy section for interior pages — same
+   look as .pipeline-section without the homepage's connector row, so
+   bottom padding is even instead of tight. */
+.content-section {
+  background: var(--color-bg-page);
+  padding: 70px 32px;
+  text-align: center;
 }
 
 .pipeline {
@@ -382,6 +426,7 @@ a { text-decoration: none; color: inherit; }
   color: #fff;
   padding: 60px 32px 30px;
   overflow: hidden;
+  margin-top: auto;
 }
 
 .footer-tree-watermark {

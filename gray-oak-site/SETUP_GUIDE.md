@@ -5,8 +5,12 @@ slate + gold brand palette (Gray Oak, Slate, Deep Green, Steel Blue, Warm Taupe,
 Gold Leaf), Playfair Display for headings/accents, Inter for body text — this is
 the direction you confirmed.
 
-**This is a homepage only.** About, Services, Who We Help, Insights, and Contact
-are linked from the nav but not built yet — that's the natural next step from here.
+**Homepage + About page so far.** The homepage (`index.html`) and an About
+page (`about.html`) are built and linked together. Services, Who We Help, and
+Insights are still just anchors on the homepage — building each out as its
+own page, the same way About was, is the natural next step (see "Adding a
+new page" below). Contact isn't a separate page — it's the footer, which
+appears at the bottom of every page and the nav's Contact button scrolls to it.
 
 You do not need to know how to code to use this guide. Every step below is a
 click, a typed command, or copy/paste.
@@ -17,7 +21,9 @@ click, a typed command, or copy/paste.
 
 ```
 gray-oak-site/
-├── index.html      ← the homepage
+├── index.html        ← the homepage
+├── about.html         ← the About page
+├── page-template.html  ← blank starting point for the next new page
 ├── css/
 │   ├── style.css     ← layout/structure
 │   └── theme.css      ← brand colors + fonts (Playfair Display + Inter)
@@ -162,8 +168,30 @@ and a root system that **draws itself in as you scroll**, spreading out fully
 right around the footer — a nod to "Deep roots. Clear judgment. Strong
 outcomes." This is done with plain SVG + a bit of JavaScript in `js/main.js`
 (look for `tree-trunk-path` and the scroll listener) — no libraries required.
-It's hidden on narrow phone screens (under 900px wide) to keep mobile layouts
-uncluttered; let me know if you'd like a scaled-down mobile version instead.
+It's on every page, desktop and mobile — the rail and stroke just scale down
+at narrower widths to stay in proportion.
+
+## Adding a new page
+
+`page-template.html` is a blank starting point with the header, a shorter
+"interior page" hero, the tree rail, the footer, and two ready-made content
+sections (a heading + text block, and a grid of short cards) all wired up —
+comments in the file mark exactly what to edit. `about.html` was built from
+this same template, so it's a working example to copy from too.
+
+To build the next page (Services, Who We Help, or Insights):
+
+1. In VS Code, right-click `page-template.html` → **Copy**, then paste and
+   rename it (e.g. `services.html`).
+2. Fill in the title, hero text, and content sections for that page — swap in
+   real paragraphs, or a `.cards-grid` of short cards, or both.
+3. Update the homepage's nav (`index.html`) so that page's link points to the
+   new file instead of a same-page anchor — e.g. change `href="#services"` to
+   `href="services.html"` in both the header nav and the footer's Quick Links,
+   the same way `about.html` was wired in.
+4. On every *other* page's header/footer nav, do the same swap so the link is
+   consistent site-wide (or just tell me the page's name and I'll wire up the
+   navigation across the whole site in one pass).
 
 ## What's still placeholder / next steps
 
@@ -173,9 +201,9 @@ uncluttered; let me know if you'd like a scaled-down mobile version instead.
 - The four icon-strip labels (Trusted Advisors, Mission Focused, Built for
   Durability, Outcome Driven) are pulled straight from the brand board — replace
   if you want different language.
-- About, Services, Who We Help, Insights, and Contact pages aren't built yet —
-  the next step is building those out with the same header/footer so
-  navigation works site-wide.
+- Services, Who We Help, and Insights are still just anchors on the homepage,
+  not their own pages yet — see "Adding a new page" above for how About was
+  built and how to do the same for these.
 - The contact form mentioned in the site questionnaire isn't wired up yet —
   Render's static hosting doesn't run backend code, so the simplest no-code
   option is a free form service like Formspree (https://formspree.io) plugged
