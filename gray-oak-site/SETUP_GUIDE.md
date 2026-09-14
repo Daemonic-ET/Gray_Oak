@@ -5,12 +5,12 @@ slate + gold brand palette (Gray Oak, Slate, Deep Green, Steel Blue, Warm Taupe,
 Gold Leaf), Playfair Display for headings/accents, Inter for body text — this is
 the direction you confirmed.
 
-**Homepage + About page so far.** The homepage (`index.html`) and an About
-page (`about.html`) are built and linked together. Services, Who We Help, and
-Insights are still just anchors on the homepage — building each out as its
-own page, the same way About was, is the natural next step (see "Adding a
-new page" below). Contact isn't a separate page — it's the footer, which
-appears at the bottom of every page and the nav's Contact button scrolls to it.
+**All five main pages are built.** The homepage (`index.html`), About
+(`about.html`), Services (`services.html`), Who We Help (`who-we-help.html`),
+and Insights (`insights.html`) are all built and linked together — the nav
+and footer Quick Links on every page point to each dedicated page. Contact
+isn't a separate page — it's the footer, which appears at the bottom of
+every page and the nav's Contact button scrolls to it.
 
 You do not need to know how to code to use this guide. Every step below is a
 click, a typed command, or copy/paste.
@@ -21,8 +21,11 @@ click, a typed command, or copy/paste.
 
 ```
 gray-oak-site/
-├── index.html        ← the homepage
+├── index.html         ← the homepage
 ├── about.html         ← the About page
+├── services.html      ← the Services page
+├── who-we-help.html   ← the Who We Help page
+├── insights.html      ← the Insights page
 ├── page-template.html  ← blank starting point for the next new page
 ├── css/
 │   ├── style.css     ← layout/structure
@@ -176,21 +179,18 @@ at narrower widths to stay in proportion.
 `page-template.html` is a blank starting point with the header, a shorter
 "interior page" hero, the tree rail, the footer, and two ready-made content
 sections (a heading + text block, and a grid of short cards) all wired up —
-comments in the file mark exactly what to edit. `about.html` was built from
-this same template, so it's a working example to copy from too.
+comments in the file mark exactly what to edit. `about.html`, `services.html`,
+`who-we-help.html`, and `insights.html` were all built from this same
+template, so any of them is a working example to copy from too.
 
-To build the next page (Services, Who We Help, or Insights):
+To build another page:
 
 1. In VS Code, right-click `page-template.html` → **Copy**, then paste and
-   rename it (e.g. `services.html`).
+   rename it (e.g. `careers.html`).
 2. Fill in the title, hero text, and content sections for that page — swap in
    real paragraphs, or a `.cards-grid` of short cards, or both.
-3. Update the homepage's nav (`index.html`) so that page's link points to the
-   new file instead of a same-page anchor — e.g. change `href="#services"` to
-   `href="services.html"` in both the header nav and the footer's Quick Links,
-   the same way `about.html` was wired in.
-4. On every *other* page's header/footer nav, do the same swap so the link is
-   consistent site-wide (or just tell me the page's name and I'll wire up the
+3. Add the new page's link to the header nav and footer Quick Links on every
+   *other* page (or just tell me the page's name and I'll wire up the
    navigation across the whole site in one pass).
 
 ## What's still placeholder / next steps
@@ -201,9 +201,10 @@ To build the next page (Services, Who We Help, or Insights):
 - The four icon-strip labels (Trusted Advisors, Mission Focused, Built for
   Durability, Outcome Driven) are pulled straight from the brand board — replace
   if you want different language.
-- Services, Who We Help, and Insights are still just anchors on the homepage,
-  not their own pages yet — see "Adding a new page" above for how About was
-  built and how to do the same for these.
+- The Services, Who We Help, and Insights pages currently use the same
+  generic filler text and empty content boxes as About — swap in real copy
+  and content whenever it's ready, the same way About's real content would
+  be filled in.
 - The contact form mentioned in the site questionnaire isn't wired up yet —
   Render's static hosting doesn't run backend code, so the simplest no-code
   option is a free form service like Formspree (https://formspree.io) plugged

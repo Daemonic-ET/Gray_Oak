@@ -9,7 +9,7 @@
   --color-bg-page: #FAF8F5;
   --color-bg-dark: #2E3338;      /* Slate */
   --color-bg-dark-strip: #23272B;
-  --color-bg-footer: #202020;    /* Footer — flat dark charcoal */
+  --color-bg-footer: linear-gradient(180deg, #2b2b2b 0%, #202020 45%, #161616 100%); /* Footer — subtle gradient of the flat charcoal */
   --color-border: #E4DFD6;
 
   --color-text-dark: #2E3338;
@@ -22,6 +22,7 @@
   --color-pipeline-line: #B99B5E;
 
   --color-card-bg: #2F4A3F;       /* Deep Green */
+  --color-card-bg-hover: #3D604F; /* Deep Green, lightened for hover highlight */
   --color-card-text: #FAF8F5;
 
   /* Hero background: real tree-ring texture with a slate overlay on top so

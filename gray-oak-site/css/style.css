@@ -78,7 +78,7 @@ a { text-decoration: none; color: inherit; }
     padding-left: 190px;
   }
 
-  .footer-logo { margin-left: -35px; }
+  .footer-logo { margin-left: -165.05px; }
   .footer-nav-cols { gap: 163px; }
 }
 
@@ -100,7 +100,7 @@ a { text-decoration: none; color: inherit; }
   .nav-contact-mobile { display: block; }
   .nav-contact-mobile a { font-weight: 700; color: var(--color-accent); }
 
-  .footer-logo { margin-left: -17px; }
+  .footer-logo { margin-left: -58.31px; }
   .footer-nav-cols { gap: 40px; }
 }
 
@@ -115,7 +115,7 @@ a { text-decoration: none; color: inherit; }
     padding-left: 48px;
   }
 
-  .footer-logo { margin-left: -18px; }
+  .footer-logo { margin-left: -49.62px; }
 }
 
 /* ---------- Header / Nav ---------- */
@@ -381,6 +381,14 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  background: var(--color-card-bg-hover);
+  box-shadow: 0 14px 28px rgba(46, 51, 56, 0.85);
+  transform: translateY(-3px);
 }
 
 .card--featured {
@@ -501,4 +509,50 @@ a { text-decoration: none; color: inherit; }
   .pipeline-line { display: none; }
   .icon-strip .wrap { justify-content: center; }
   .icon-divider { display: none; }
+}
+
+/* ---------- Back to top ---------- */
+
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(46, 51, 56, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s, background 0.2s ease;
+  z-index: 40;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover { opacity: 0.9; }
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 480px) {
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+  }
 }
