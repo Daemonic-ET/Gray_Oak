@@ -163,23 +163,12 @@ matter where the text lands on the pattern. To swap in a different background
 image later, just replace `assets/hero-bg.jpg` with a new file of the same
 name (or update the filename in the `--hero-bg-image` line in `css/theme.css`).
 
-## The growing tree (left border)
-
-The left edge has a small canopy right at the top of the light content section
-(it deliberately doesn't appear over the dark hero or the black icon strip),
-and a root system that **draws itself in as you scroll**, spreading out fully
-right around the footer — a nod to "Deep roots. Clear judgment. Strong
-outcomes." This is done with plain SVG + a bit of JavaScript in `js/main.js`
-(look for `tree-trunk-path` and the scroll listener) — no libraries required.
-It's on every page, desktop and mobile — the rail and stroke just scale down
-at narrower widths to stay in proportion.
-
 ## Adding a new page
 
 `page-template.html` is a blank starting point with the header, a shorter
-"interior page" hero, the tree rail, the footer, and two ready-made content
-sections (a heading + text block, and a grid of short cards) all wired up —
-comments in the file mark exactly what to edit. `about.html`, `services.html`,
+"interior page" hero, the footer, and two ready-made content sections (a
+heading + text block, and a grid of short cards) all wired up — comments in
+the file mark exactly what to edit. `about.html`, `services.html`,
 `who-we-help.html`, and `insights.html` were all built from this same
 template, so any of them is a working example to copy from too.
 
