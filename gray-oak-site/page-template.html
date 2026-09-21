@@ -67,29 +67,49 @@
       </div>
     </section>
 
+    <!-- 4. Click-to-expand cards (optional): a card opens a centered
+         popup automatically if it has a nested <template class="card-
+         detail">, plus tabindex="0" role="button" aria-haspopup="dialog"
+         on the card itself (for keyboard/screen-reader users) and the
+         #card-modal-overlay markup near the bottom of this file (copy it
+         as-is, same as the footer). Leave those three attributes and the
+         <template> off a card if it should NOT be clickable — that's how
+         the homepage's own Insight cards are kept non-interactive. -->
     <section class="cards-section">
       <h2 class="cards-heading">Another Section Heading</h2>
       <div class="cards-grid">
-        <div class="card">
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
           <div>
             <h3>Card title</h3>
             <p>Short supporting line.</p>
           </div>
           <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>Card title</h3>
+            <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
+          </template>
         </div>
-        <div class="card">
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
           <div>
             <h3>Card title</h3>
             <p>Short supporting line.</p>
           </div>
           <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>Card title</h3>
+            <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
+          </template>
         </div>
-        <div class="card">
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
           <div>
             <h3>Card title</h3>
             <p>Short supporting line.</p>
           </div>
           <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>Card title</h3>
+            <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
+          </template>
         </div>
       </div>
     </section>
@@ -127,6 +147,19 @@
   <button id="back-to-top" class="back-to-top" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
   </button>
+
+  <!-- Card detail popup — shared by every clickable card on this page.
+       Stays hidden and empty until a card is clicked; js/main.js fills
+       #card-modal-body with that card's own <template class="card-detail">
+       content. Copy this block as-is onto any page that has clickable
+       cards (see the cards-section comment above for how to make a card
+       clickable). -->
+  <div id="card-modal-overlay" class="card-modal-overlay" hidden>
+    <div class="card-modal" role="dialog" aria-modal="true">
+      <button type="button" class="card-modal-close" aria-label="Close">&times;</button>
+      <div id="card-modal-body" class="card-modal-body"></div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>

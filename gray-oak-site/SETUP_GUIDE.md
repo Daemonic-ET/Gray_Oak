@@ -26,7 +26,8 @@ gray-oak-site/
 ├── services.html      ← the Services page
 ├── who-we-help.html   ← the Who We Help page
 ├── insights.html      ← the Insights page
-├── page-template.html  ← blank starting point for the next new page
+├── page-template-standard.html    ← blank starting point: centered layout (like Services)
+├── page-template-two-column.html  ← blank starting point: two-column layout (like About)
 ├── css/
 │   ├── style.css     ← layout/structure
 │   └── theme.css      ← brand colors + fonts (Playfair Display + Inter)
@@ -165,19 +166,31 @@ name (or update the filename in the `--hero-bg-image` line in `css/theme.css`).
 
 ## Adding a new page
 
-`page-template.html` is a blank starting point with the header, a shorter
-"interior page" hero, the footer, and two ready-made content sections (a
-heading + text block, and a grid of short cards) all wired up — comments in
-the file mark exactly what to edit. `about.html`, `services.html`,
-`who-we-help.html`, and `insights.html` were all built from this same
-template, so any of them is a working example to copy from too.
+There are two blank starting points, since the site uses two different
+interior-page layouts — pick whichever matches what the new page needs:
+
+- **`page-template-standard.html`** — the header, a shorter "interior page"
+  hero with a centered heading, a centered body-copy section, and a grid of
+  short cards stacked underneath. This is the layout Services, Who We Help,
+  and Insights all use — the right pick for most new pages.
+- **`page-template-two-column.html`** — the same header and hero, but the
+  heading aligns flush-left and the body copy sits in a left column next to
+  a card grid on the right, with the section heading centered above the
+  cards. This is the layout About uses — pick this one if the new page is
+  more like a story/team page than a straightforward content page.
+
+Both files have the footer and the click-to-expand card popup already wired
+up, with comments marking exactly what to edit. `about.html`, `services.html`,
+`who-we-help.html`, and `insights.html` are also working examples to copy
+from — About matches the two-column template, the other three match the
+standard one.
 
 To build another page:
 
-1. In VS Code, right-click `page-template.html` → **Copy**, then paste and
-   rename it (e.g. `careers.html`).
-2. Fill in the title, hero text, and content sections for that page — swap in
-   real paragraphs, or a `.cards-grid` of short cards, or both.
+1. In VS Code, right-click whichever template matches → **Copy**, then paste
+   and rename it (e.g. `careers.html`).
+2. Fill in the title, hero heading, and content sections for that page — swap
+   in real paragraphs, or a `.cards-grid` of short cards, or both.
 3. Add the new page's link to the header nav and footer Quick Links on every
    *other* page (or just tell me the page's name and I'll wire up the
    navigation across the whole site in one pass).

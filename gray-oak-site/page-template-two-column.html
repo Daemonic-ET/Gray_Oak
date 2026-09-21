@@ -3,12 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — Gray Oak Advisory</title>
+<!-- 1. Set the page title -->
+<title>Page Title — Gray Oak Advisory</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
 
+  <!-- ============================================================
+       HEADER — identical on every page. Copy as-is.
+       Every top-level nav item points to its own dedicated page
+       (about.html, services.html, who-we-help.html, insights.html)
+       — "Contact" is the exception, since it just scrolls to this
+       page's own footer.
+       ============================================================ -->
   <header class="site-header">
     <a href="index.html" class="logo"><img src="assets/logo.png" alt="Gray Oak Advisory"></a>
     <div class="nav-right">
@@ -26,96 +34,110 @@
     </button>
   </header>
 
+  <!-- ============================================================
+       HERO — the compact "interior page" hero used by the About
+       page. Its heading (below) IS the page's main H1. hero--about
+       aligns the heading flush-left so it lines up with the
+       left-aligned body copy in the two-column layout below it.
+
+       If this new page's body copy should instead be centered
+       (like Services/Who We Help/Insights, with a card grid
+       stacked underneath rather than beside it), copy
+       page-template-standard.html instead — its hero centers the
+       heading to match that centered layout.
+
+       2. Edit the heading text below.
+       ============================================================ -->
   <section class="hero hero--sub hero--about">
     <div class="hero-inner">
-      <h1 class="hero-title-gold">Who We Are</h1>
+      <h1 class="hero-title-gold">Page Headline Goes Here.</h1>
     </div>
   </section>
 
   <div class="page-content-wrap">
-    <div class="about-content-bg about-content-bg--dark">
+    <!-- ==========================================================
+         3. PAGE CONTENT — two-column layout: body copy on the
+         left, a heading + card grid on the right, with the heading
+         centered directly above the cards (the pattern the About
+         page uses for "Who We Are" / "What We Believe"). Everything
+         inside .about-two-col below uses the same .content-section/
+         .prose-block and .cards-section/.cards-grid markup as the
+         standard template — .about-two-col is what rearranges them
+         side by side instead of stacking them.
+         ========================================================== -->
     <div class="about-two-col">
-      <section class="content-section" id="about">
+      <section class="content-section">
         <div class="prose-block">
-          <p>Gray Oak Advisory LLC is a practitioner-led management and technology advisory firm focused on helping organizations make asset management work in practice. We connect asset management strategy with the people, processes, data, technology, and decisions required to achieve sustainable performance.</p>
-          <p>We occupy the intersection of asset management, people, data, technology, and change — and we've found that most organizations already have these capabilities, they just struggle to connect them. Gray Oak brings practical implementation experience rather than a purely theoretical or compliance-based approach, so the capability we help build is one your team can carry forward without us.</p>
+          <p>Body copy goes here. This block is left-aligned and sits in the left column, next to the card grid.</p>
+          <p>Add as many paragraphs as the section needs.</p>
         </div>
       </section>
 
+      <!-- 4. Click-to-expand cards (optional): a card opens a centered
+           popup automatically if it has a nested <template class="card-
+           detail">, plus tabindex="0" role="button" aria-haspopup="dialog"
+           on the card itself (for keyboard/screen-reader users) and the
+           #card-modal-overlay markup near the bottom of this file (copy it
+           as-is, same as the footer). Leave those three attributes and the
+           <template> off a card if it should NOT be clickable — that's how
+           the homepage's own Insight cards are kept non-interactive.
+           The grid here is 2 cards wide (not the site's usual 3) since
+           this column is half-width — add or remove card blocks in pairs
+           to keep full rows. -->
       <section class="cards-section">
-        <h2 class="cards-heading">What We Believe</h2>
+        <h2 class="cards-heading">Section Heading</h2>
         <div class="cards-grid">
           <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
             <div>
-              <h3>A Business Discipline, Not a Technical Function</h3>
-              <p>Asset management connects strategy to daily work.</p>
+              <h3>Card title</h3>
+              <p>Short supporting line.</p>
             </div>
             <div><span class="card-dot"></span></div>
             <template class="card-detail">
-              <h3>A Business Discipline, Not a Technical Function</h3>
-              <p>Asset management is a business discipline, not an isolated technical function. Good asset management connects strategy to daily work, so the decisions made on the floor reflect the priorities set in the boardroom.</p>
+              <h3>Card title</h3>
+              <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
             </template>
           </div>
           <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
             <div>
-              <h3>It's Ultimately About People</h3>
-              <p>A system only creates value when it changes how people work.</p>
+              <h3>Card title</h3>
+              <p>Short supporting line.</p>
             </div>
             <div><span class="card-dot"></span></div>
             <template class="card-detail">
-              <h3>It's Ultimately About People</h3>
-              <p>Asset management is ultimately about people. A management system only creates value when it changes how people work and make decisions — not when it sits in a binder.</p>
+              <h3>Card title</h3>
+              <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
             </template>
           </div>
           <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
             <div>
-              <h3>Compliance Is the Floor, Not the Ceiling</h3>
-              <p>Excellence comes from continuous improvement, not a one-time project.</p>
+              <h3>Card title</h3>
+              <p>Short supporting line.</p>
             </div>
             <div><span class="card-dot"></span></div>
             <template class="card-detail">
-              <h3>Compliance Is the Floor, Not the Ceiling</h3>
-              <p>Compliance is the floor, not the ceiling. We help organizations pursue excellence through continuous improvement, rather than treating a certification or an implementation as the finish line.</p>
+              <h3>Card title</h3>
+              <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
             </template>
           </div>
           <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
             <div>
-              <h3>Technology Should Serve Decisions</h3>
-              <p>Data is a strategic asset — technology should enable better decisions.</p>
+              <h3>Card title</h3>
+              <p>Short supporting line.</p>
             </div>
             <div><span class="card-dot"></span></div>
             <template class="card-detail">
-              <h3>Technology Should Serve Decisions</h3>
-              <p>Technology should enable better decisions, not become the strategy itself. We treat data as a strategic asset and help organizations put it to work, rather than chasing a platform for its own sake.</p>
-            </template>
-          </div>
-          <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
-            <div>
-              <h3>Sustainable Change Needs Ownership</h3>
-              <p>Change sticks when leadership, ownership, and culture are behind it.</p>
-            </div>
-            <div><span class="card-dot"></span></div>
-            <template class="card-detail">
-              <h3>Sustainable Change Needs Ownership</h3>
-              <p>Sustainable change requires leadership, ownership, and culture — not just a new process document. We work with the people who'll own the outcome, not around them.</p>
-            </template>
-          </div>
-          <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
-            <div>
-              <h3>We Build Capability, Not Dependency</h3>
-              <p>The goal isn't another report. It's capability that lasts.</p>
-            </div>
-            <div><span class="card-dot"></span></div>
-            <template class="card-detail">
-              <h3>We Build Capability, Not Dependency</h3>
-              <p>Organizations should build internal capability rather than become dependent on consultants. The best solutions are practical enough to survive contact with reality — our goal isn't to create another report, it's to leave you with capability that lasts.</p>
+              <h3>Card title</h3>
+              <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
             </template>
           </div>
         </div>
       </section>
     </div>
-    </div>
 
+    <!-- ========================================================== -->
+
+    <!-- FOOTER — identical on every page. Copy as-is. -->
     <footer class="site-footer site-footer--home" id="contact">
       <div class="footer-grid footer-grid--home">
         <div class="footer-brand">

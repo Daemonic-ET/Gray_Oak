@@ -26,53 +26,116 @@
     </button>
   </header>
 
-  <section class="hero hero--sub">
+  <section class="hero hero--sub hero--about">
     <div class="hero-inner">
       <h1 class="hero-title-gold">What We Do</h1>
     </div>
   </section>
 
   <div class="page-content-wrap">
+    <div class="about-two-col">
     <section class="content-section" id="services">
       <div class="prose-block">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Gray Oak provides advisory, consulting, facilitation, training, and specialized technical expertise across asset management strategy, people and change, maintenance and reliability, and data and technology. We work across the full range an organization needs — from board-level strategy to the technical detail of how a maintenance plan or a data model actually gets built.</p>
+        <p>We're practitioner-led and implementation-focused: our work is about determining how to make asset management work in practice, not just producing a report on what you should do.</p>
       </div>
     </section>
 
     <section class="cards-section">
       <h2 class="cards-heading">Our Services</h2>
       <div class="cards-grid">
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
+          <div>
+            <h3>Asset Management &amp; Strategy</h3>
+            <p>Connecting strategy to the plans that carry it out.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>Asset Management &amp; Strategy</h3>
+            <p>We help organizations develop and implement asset management strategy, including Strategic Asset Management Plans (SAMPs), asset management policy, and the governance structures that connect strategy to day-to-day decisions.</p>
+            <p>This is the foundation the rest of an asset management program is built on — the link between what leadership wants and what actually happens on the ground.</p>
+          </template>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
+          <div>
+            <h3>ISO 55001 Implementation &amp; Certification</h3>
+            <p>Practical, first-hand experience — not theory.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>ISO 55001 Implementation &amp; Certification</h3>
+            <p>We guide organizations through ISO 55001 implementation and certification with real implementation experience behind it. Our team helped bring the first ISO 55001-certified water/wastewater utility in North America through that process.</p>
+            <p>ISO 55001 is one part of a broader practice, not the whole of what we do — we help you use the standard as a tool for better asset management, not treat it as the end goal itself.</p>
+          </template>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
+          <div>
+            <h3>People, Leadership &amp; Change</h3>
+            <p>The discipline only works if people adopt it.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>People, Leadership &amp; Change</h3>
+            <p>We work on organizational culture, leadership alignment, workforce development, and change management — the human side of asset management that determines whether a new system or process actually sticks.</p>
+            <p>Sustainable change requires leadership, ownership, and culture behind it, so we work directly with the people who'll own the outcome.</p>
+          </template>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
+          <div>
+            <h3>Maintenance &amp; Reliability</h3>
+            <p>Practical programs like RCM, grounded in day-to-day operations.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>Maintenance &amp; Reliability</h3>
+            <p>We help design and improve maintenance and reliability programs, including Reliability-Centered Maintenance (RCM), so that maintenance strategy is grounded in how assets actually fail and perform — not just a generic schedule.</p>
+          </template>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
+          <div>
+            <h3>Data, Information &amp; Technology</h3>
+            <p>Data as a strategic asset, and the systems that use it well.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>Data, Information &amp; Technology</h3>
+            <p>We work on asset data and information management and on Enterprise Asset Management / CMMS systems — from data quality and structure to selecting and implementing the technology that puts that data to work.</p>
+            <p>Technology should enable better decisions, not become the strategy itself — we treat data as a strategic asset and build the systems around that principle.</p>
+          </template>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
+          <div>
+            <h3>Specialized Advisory</h3>
+            <p>Technical depth where a specific problem needs it.</p>
+          </div>
+          <div><span class="card-dot"></span></div>
+          <template class="card-detail">
+            <h3>Specialized Advisory</h3>
+            <p>Beyond our core services, we provide specialized technical expertise and advisory support tailored to the specific asset management challenges an organization is facing — brought in where a particular problem calls for deeper, more focused expertise.</p>
+          </template>
+        </div>
       </div>
     </section>
+    </div>
 
-    <footer class="site-footer" id="contact">
-      <div class="footer-grid">
-        <div class="footer-logo">
-          <img src="assets/footer-logo.png" alt="Gray Oak Advisory">
+    <footer class="site-footer site-footer--home" id="contact">
+      <div class="footer-grid footer-grid--home">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="assets/footer-logo.png" alt="Gray Oak Advisory">
+          </div>
+          <p class="footer-tagline">Resilient governance. Measurable outcomes.</p>
         </div>
         <div class="footer-nav-cols">
-          <div class="footer-col">
+          <div class="footer-col footer-col--centered">
             <h4>Quick Links</h4>
-            <ul>
+            <ul class="footer-links-row">
               <li><a href="index.html">Home</a></li>
               <li><a href="services.html">What We Do</a></li>
               <li><a href="about.html">Who We Are</a></li>
               <li><a href="#contact">Contact Us</a></li>
             </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Connect</h4>
-            <ul>
-              <li><a href="mailto:ask@grayoakadvisory.com">Email</a></li>
-              <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-            </ul>
+            <p class="footer-legal">&copy; 2026 Gray Oak Advisory. All rights reserved. <a href="privacy.html">Privacy</a></p>
           </div>
         </div>
       </div>
@@ -82,6 +145,19 @@
   <button id="back-to-top" class="back-to-top" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
   </button>
+
+  <!-- Card detail popup — shared by every clickable card on this page.
+       Stays hidden and empty until a card is clicked; js/main.js fills
+       #card-modal-body with that card's own <template class="card-detail">
+       content. Copy this block as-is onto any page that has clickable
+       cards (see the cards-section comment above for how to make a card
+       clickable). -->
+  <div id="card-modal-overlay" class="card-modal-overlay" hidden>
+    <div class="card-modal" role="dialog" aria-modal="true">
+      <button type="button" class="card-modal-close" aria-label="Close">&times;</button>
+      <div id="card-modal-body" class="card-modal-body"></div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>

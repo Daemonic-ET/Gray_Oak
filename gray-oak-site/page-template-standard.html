@@ -3,12 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Who We Help — Gray Oak Advisory</title>
+<!-- 1. Set the page title -->
+<title>Page Title — Gray Oak Advisory</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
 
+  <!-- ============================================================
+       HEADER — identical on every page. Copy as-is.
+       Every top-level nav item points to its own dedicated page
+       (about.html, services.html, who-we-help.html, insights.html)
+       — "Contact" is the exception, since it just scrolls to this
+       page's own footer.
+       ============================================================ -->
   <header class="site-header">
     <a href="index.html" class="logo"><img src="assets/logo.png" alt="Gray Oak Advisory"></a>
     <div class="nav-right">
@@ -26,83 +34,96 @@
     </button>
   </header>
 
-  <section class="hero hero--sub hero--about">
+  <!-- ============================================================
+       HERO — this is the compact "interior page" hero used by
+       Services, Who We Help, and Insights. Its heading (below) IS
+       the page's main H1 — you don't need a separate heading atop
+       the content section. hero--center-title centers the heading
+       so it lines up with the centered body copy underneath it.
+
+       If this new page's body text should instead sit left-aligned
+       next to a card grid (like the About page), copy
+       page-template-two-column.html instead — its hero aligns
+       flush-left with left-aligned body copy rather than centering.
+
+       2. Edit the heading text below.
+       ============================================================ -->
+  <section class="hero hero--sub hero--center-title">
     <div class="hero-inner">
-      <h1 class="hero-title-gold">Who We Help</h1>
+      <h1 class="hero-title-gold">Page Headline Goes Here.</h1>
     </div>
   </section>
 
   <div class="page-content-wrap">
-    <div class="about-two-col">
-    <section class="content-section" id="who-we-help">
+    <!-- ==========================================================
+         3. PAGE CONTENT — replace with whatever this page needs.
+         Two ready-made section types below (delete the one you
+         don't use, or both, or add more of either) — they use the
+         same visual language as the rest of the site so any
+         combination will match:
+
+         .content-section + .prose-block  → centered heading, left-
+                                             aligned body copy below
+         .cards-section + .cards-grid     → a grid of short cards
+         ========================================================== -->
+
+    <section class="content-section">
       <div class="prose-block">
-        <p>Gray Oak works with asset management leaders, operations and maintenance leadership, executives, and technical staff at organizations that own and operate significant physical infrastructure — primarily in water and wastewater, utilities, municipal infrastructure, government, transportation, energy, and other asset-intensive industries.</p>
-        <p>Rather than sorting clients by industry alone, we think about where an organization sits in its asset management journey, because that's what actually determines what kind of help is useful right now.</p>
+        <p>Body copy goes here. This block is left-aligned and width-constrained for readability, centered on the page.</p>
+        <p>Add as many paragraphs as the section needs.</p>
       </div>
     </section>
 
+    <!-- 4. Click-to-expand cards (optional): a card opens a centered
+         popup automatically if it has a nested <template class="card-
+         detail">, plus tabindex="0" role="button" aria-haspopup="dialog"
+         on the card itself (for keyboard/screen-reader users) and the
+         #card-modal-overlay markup near the bottom of this file (copy it
+         as-is, same as the footer). Leave those three attributes and the
+         <template> off a card if it should NOT be clickable — that's how
+         the homepage's own Insight cards are kept non-interactive. -->
     <section class="cards-section">
-      <h2 class="cards-heading">Wherever You Are in the Journey</h2>
+      <h2 class="cards-heading">Section Heading</h2>
       <div class="cards-grid">
         <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
           <div>
-            <h3>Building</h3>
-            <p>Just getting started with formal asset management.</p>
+            <h3>Card title</h3>
+            <p>Short supporting line.</p>
           </div>
           <div><span class="card-dot"></span></div>
           <template class="card-detail">
-            <h3>Building</h3>
-            <p>You're just getting started with formal asset management and need to establish the fundamentals — strategy, policy, and the basic structures everything else will be built on.</p>
+            <h3>Card title</h3>
+            <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
           </template>
         </div>
         <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
           <div>
-            <h3>Maturing</h3>
-            <p>Have a program, but it needs to be strengthened.</p>
+            <h3>Card title</h3>
+            <p>Short supporting line.</p>
           </div>
           <div><span class="card-dot"></span></div>
           <template class="card-detail">
-            <h3>Maturing</h3>
-            <p>You have an asset management program in place, but parts of it need to be strengthened — closing gaps, formalizing process, and building the consistency a growing program needs.</p>
+            <h3>Card title</h3>
+            <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
           </template>
         </div>
         <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
           <div>
-            <h3>Transforming</h3>
-            <p>Undergoing significant organizational or technological change.</p>
+            <h3>Card title</h3>
+            <p>Short supporting line.</p>
           </div>
           <div><span class="card-dot"></span></div>
           <template class="card-detail">
-            <h3>Transforming</h3>
-            <p>You're undergoing significant organizational or technological change — a new system, a restructuring, or a major shift in how the organization operates — and need that transformation to actually land.</p>
-          </template>
-        </div>
-        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
-          <div>
-            <h3>Sustaining</h3>
-            <p>A mature program that needs to keep performing.</p>
-          </div>
-          <div><span class="card-dot"></span></div>
-          <template class="card-detail">
-            <h3>Sustaining</h3>
-            <p>You have a mature program and need to sustain and continuously improve it — treating compliance and certification as the floor, not the finish line.</p>
-          </template>
-        </div>
-        <div class="card" tabindex="0" role="button" aria-haspopup="dialog">
-          <div>
-            <h3>Changing</h3>
-            <p>Facing leadership transitions or organizational change.</p>
-          </div>
-          <div><span class="card-dot"></span></div>
-          <template class="card-detail">
-            <h3>Changing</h3>
-            <p>You're facing leadership transitions or broader organizational change and need continuity — someone who can help carry institutional knowledge and momentum through the transition.</p>
+            <h3>Card title</h3>
+            <p>Longer detail text goes here — this is what shows in the popup when the card is clicked.</p>
           </template>
         </div>
       </div>
     </section>
-    </div>
 
+    <!-- ========================================================== -->
+
+    <!-- FOOTER — identical on every page. Copy as-is. -->
     <footer class="site-footer site-footer--home" id="contact">
       <div class="footer-grid footer-grid--home">
         <div class="footer-brand">

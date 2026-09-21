@@ -175,6 +175,40 @@ a { text-decoration: none; color: inherit; }
 .hero--sub { padding: 30px 32px 20px; }
 .hero--sub .hero-inner { min-height: 67px; }
 
+/* About page only (2026-09-21): "Who We Are" sits inside .hero-inner,
+   which is centered as a max-width:1200px box with the 32px side padding
+   applied one level up on .hero itself — so the heading's left edge lands
+   flush with .hero-inner's own edge. The "Who We Are" story text below it
+   sits inside .about-two-col, which applies that same 32px as its own
+   padding *inside* its max-width:1200px box instead, so the paragraph
+   starts 32px further right than the heading above it. Moving the 32px
+   of horizontal padding down from .hero--about onto .hero-inner (instead
+   of removing it) reproduces .about-two-col's box model exactly, so both
+   end up starting at the same x position. Scoped to .hero--about (added
+   only on about.html's hero) so Services/Who We Help/Insights, whose
+   body text is centered a different way, are unaffected. */
+.hero--about { padding-left: 0; padding-right: 0; }
+.hero--about .hero-inner { padding: 0 32px; }
+
+/* Services/Who We Help/Insights only (2026-09-21): center each page's
+   relocated hero heading over the body copy below it. .hero h1 is
+   left-aligned by default inside the full-width .hero-inner (max-width:
+   1200px), while the prose paragraph underneath is its own narrower,
+   independently-centered block (.prose-block, max-width:760px, margin:0
+   auto) — so the heading previously sat well to the left of where the
+   centered paragraph starts. Centering the heading's own box (margin:0
+   auto, so it centers within .hero-inner same as .prose-block centers
+   within .content-section) plus centering its text gives both the same
+   center axis on the page. Scoped to .hero--center-title (added only on
+   these three pages' hero) so About — whose heading was separately
+   aligned flush-left with its own left-aligned two-column text — and the
+   homepage are unaffected. */
+.hero--center-title .hero-title-gold {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 /* The page's first heading, relocated into these shortened interior heroes
    (About/Services/Who We Help/Insights) instead of repeating atop the first
    content section below. Reuses .hero h1's sizing, just recolored gold to
@@ -416,6 +450,41 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
+/* About page only (2026-09-21): content space (the area between the hero
+   and footer) uses the same dark gray gradient as the footer, instead of
+   the site-wide white content background — mirrors the same
+   --color-bg-footer treatment already used for index2.html's
+   .home-content-bg--dark. Scoped to .about-content-bg--dark, a wrapper
+   div around .about-two-col in about.html only, so every other page
+   keeps the plain white content background. The wrapper has no width
+   constraint of its own (same as .home-content-bg), so the gradient
+   paints edge-to-edge behind .about-two-col's centered 1200px column,
+   matching how the footer itself paints full-bleed. Recolors the intro
+   prose and "What We Believe" heading to light text so they stay
+   readable; the card grid itself needs no change since its deep-green/
+   gold-text styling already works on any page background. */
+.about-content-bg--dark {
+  background: var(--color-bg-footer);
+}
+
+.about-content-bg--dark .prose-block {
+  color: #fff;
+}
+
+.about-content-bg--dark .prose-block strong {
+  color: var(--color-accent);
+}
+
+.about-content-bg--dark .cards-heading {
+  color: var(--color-accent);
+}
+
+/* About page (2026-09-21): tried a custom directional shadow, then a
+   warm gold-glow shadow, for the "What We Believe" cards specifically —
+   both reverted per client request, so About's cards use the same
+   box-shadow as every other card on the site (see the plain .card /
+   .card:hover rules below). No override needed here any more. */
+
 .pipeline {
   display: flex;
   justify-content: center;
@@ -586,40 +655,124 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
 }
 
-/* Homepage footer only: once there's enough width for the logo and Quick
-   Links to sit in one row, lay them out as grid columns so Quick Links
-   lands in the true horizontal center of the footer — not just centered
-   within its own narrow column. The two outer columns are equal (1fr)
-   so the middle column stays centered on the footer as a whole even
-   though only the left one (the logo) currently has content; if a third
-   item is ever added on the right, it'll balance automatically. Below
-   this width the original stacked flex layout (already centered via
-   .footer-col--centered's text-align) takes over. */
-@media (min-width: 481px) {
+/* Homepage footer only (2026-09-17 follow-up): below 1200px, force a
+   plain single-column stack — the logo+tagline group, then Quick Links
+   (with the copyright/Privacy line now living under its link list) —
+   each centered, instead of leaving it to flex-wrap's judgment call. See
+   the 1200px rule below for why this footer needs more room than most
+   before going row-based. */
+.footer-grid--home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+/* Homepage footer only: once there's enough width, lay the footer out as
+   two flush-edge groups instead of stacking — the logo+tagline on the
+   left, Quick Links (and the copyright/Privacy line now under it) on the
+   right — with space-between pushing them to the footer's true left and
+   right edges (2026-09-17 follow-up: simplified from an earlier 3-column
+   grid + absolutely-centered middle block, no longer needed now that the
+   tagline sits next to the logo instead of in its own centered slot).
+
+   max-width is also overridden to none here: the base .footer-grid rule
+   caps at 1200px and centers with auto margins, which on wide viewports
+   left Quick Links sitting ~100px in from the true right edge of the
+   page — well short of "close to the edge" once it was right-aligned
+   within that capped, centered box. Stretching the homepage grid to the
+   full width of .site-footer's padding box (unconstrained, no
+   auto-centering) means the right group lands right against the
+   footer's own 32px side padding instead. */
+@media (min-width: 1200px) {
   .footer-grid--home {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: start;
-    column-gap: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: none;
+    margin: 0;
+    text-align: left;
   }
 
-  .footer-grid--home .footer-nav-cols {
-    display: contents;
+  .footer-grid--home .footer-col--centered,
+  .footer-grid--home .footer-legal {
+    text-align: right;
   }
 
-  .footer-grid--home .footer-logo {
-    grid-column: 1;
+  .footer-grid--home .footer-col--centered .footer-links-row {
+    justify-content: flex-end;
   }
+}
 
-  .footer-grid--home .footer-col--centered {
-    grid-column: 2;
-    justify-self: center;
-  }
+/* Homepage footer only (2026-09-17 follow-up): logo + short italic
+   tagline sitting side by side, vertically centered against the logo —
+   moved here from its own centered block between the logo and Quick
+   Links. flex-wrap lets the tagline drop to its own line below the logo
+   if the combined width doesn't fit, rather than ever overlapping
+   anything. The tagline is sized 20% up from its original 0.95rem and
+   colored the same gold as "Quick Links" so it reads as a brand
+   statement next to the mark rather than a caption. */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
 
-  .footer-grid--home .footer-col:not(.footer-col--centered) {
-    grid-column: 3;
-    justify-self: end;
+/* .footer-logo normally carries a bottom margin for the stacked layout
+   (logo sitting above the nav columns on interior pages); inside
+   .footer-brand it sits inline next to the tagline instead, so that
+   margin is zeroed out here — otherwise align-items:center would center
+   the logo's margin box rather than the image itself, nudging the logo
+   visibly above the tagline's baseline. */
+.footer-brand .footer-logo {
+  margin-bottom: 0;
+}
+
+@media (min-width: 1200px) {
+  .footer-brand {
+    justify-content: flex-start;
   }
+}
+
+.footer-tagline {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.14rem;
+  color: var(--color-accent);
+}
+
+/* Homepage footer only (2026-09-17 follow-up): copyright + Privacy line
+   moved to sit under the Home/What We Do/Who We Are/Contact Us list
+   instead of under the tagline — small and muted, as copyright lines
+   usually are, with the Privacy link underlined so it reads as tappable
+   despite matching the muted copyright text next to it.
+
+   The Privacy link's rule is written as .footer-col .footer-legal a
+   rather than plain .footer-legal a (2026-09-17 fix): now that this line
+   lives inside .footer-col, the generic ".footer-col a" rule below (also
+   font-size + color) has equal selector specificity, and later source
+   order let it win, bumping Privacy up to 0.9rem/brighter white instead
+   of staying 0.8rem/muted like the copyright text next to it. The extra
+   .footer-col in the selector makes this one unambiguously more specific
+   so it wins regardless of where either rule sits in the file. */
+.footer-legal {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.footer-col .footer-legal a {
+  font-size: inherit;
+  color: inherit;
+  text-decoration: underline;
+}
+
+.footer-col .footer-legal a:hover {
+  color: var(--color-accent);
 }
 
 .footer-col a { font-size: 0.9rem; color: rgba(255,255,255,0.85); }
@@ -714,6 +867,18 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(0);
 }
 
+/* Site-wide (2026-09-17): once scrolling reaches the footer, main.js
+   switches the button from position:fixed (pinned to the viewport, which
+   let it sit on top of the dark footer once you'd scrolled all the way
+   down) to position:absolute with an inline top computed in JS, so it
+   docks just above the footer — back on the white content background —
+   instead of floating over it. bottom:auto clears the fixed-mode bottom
+   offset so the inline top isn't fighting it. */
+.back-to-top.is-docked {
+  position: absolute;
+  bottom: auto;
+}
+
 .back-to-top:hover { opacity: 0.9; }
 
 .back-to-top svg {
@@ -727,5 +892,107 @@ a { text-decoration: none; color: inherit; }
     bottom: 16px;
     width: 40px;
     height: 40px;
+  }
+}
+
+/* ---------- Clickable cards + detail modal (2026-09-17) ----------
+   Any .card with a [tabindex] attribute is treated as interactive (this
+   scoping is what keeps the homepage's own Insight cards, which have no
+   tabindex, unaffected). Clicking/Enter/Space clones that card's nested
+   <template class="card-detail"> into #card-modal-body and shows the
+   shared overlay. See js/main.js for the open/close logic. */
+
+.card[tabindex] {
+  cursor: pointer;
+}
+
+.card[tabindex]:hover {
+  background: var(--color-card-bg-hover);
+}
+
+.card[tabindex]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.card-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 22, 22, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+
+.card-modal-overlay[hidden] {
+  display: none;
+}
+
+.card-modal {
+  /* Matches the clicked card's own styling: same deep-green background,
+     gold text, and body font (Inter) as every .card box. */
+  position: relative;
+  background: var(--color-card-bg);
+  color: var(--color-card-text);
+  font-family: var(--font-body);
+  width: 100%;
+  max-width: 560px;
+  max-height: min(80vh, 640px);
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 44px 36px 36px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.card-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--color-card-text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.15s ease;
+}
+
+.card-modal-close:hover,
+.card-modal-close:focus-visible {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.card-modal-body h3 {
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+  color: var(--color-card-text);
+}
+
+.card-modal-body p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.card-modal-body p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .card-modal {
+    padding: 40px 22px 28px;
   }
 }

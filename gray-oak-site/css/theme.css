@@ -1,6 +1,10 @@
 /* Gray Oak Advisory — brand theme: charcoal/slate + gold, Playfair Display + Inter */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* ital,wght axis syntax: 0=roman, 1=italic. Roman 600/700 are the page
+   headings; italic 400 was added 2026-09-17 for the footer tagline, which
+   is normal-weight and italic — without it the browser silently falls
+   back to Georgia's italic for that one line instead of Playfair's own. */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --font-heading: 'Playfair Display', Georgia, serif;
@@ -23,7 +27,7 @@
 
   --color-card-bg: #2F4A3F;       /* Deep Green */
   --color-card-bg-hover: #3D604F; /* Deep Green, lightened for hover highlight */
-  --color-card-text: #FAF8F5;
+  --color-card-text: var(--color-accent); /* Gold Leaf — card title/body text */
 
   /* Hero background: real tree-ring texture with a slate overlay on top so
      white headline text stays readable no matter where it falls on the image. */
