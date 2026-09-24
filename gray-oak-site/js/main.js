@@ -121,6 +121,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var interactiveCards = document.querySelectorAll('.card[tabindex]');
     interactiveCards.forEach(function (card) {
+      // Hover-to-expand popover (2026-09-23): clone this card's own
+      // <template class="card-detail"> — the same one openCardModal()
+      // reads from above — into a .card-popover panel appended to the
+      // card, once, at page load. It reuses .card-modal-body for its
+      // internal heading/paragraph/list styling, so the content reads
+      // identically whether it's reached by hovering or by opening the
+      // full modal. Showing/hiding it is pure CSS, gated to hover-capable
+      // pointers only (see the (hover: hover) rule in css/style.css), so
+      // touchscreens never render it and fall through to the tap-to-open
+      // modal below instead.
+      var detailTemplate = card.querySelector('.card-detail');
+      if (detailTemplate) {
+        var popover = document.createElement('div');
+        popover.className = 'card-popover card-modal-body';
+        popover.setAttribute('aria-hidden', 'true');
+        popover.appendChild(detailTemplate.content.cloneNode(true));
+        card.appendChild(popover);
+      }
+
       card.addEventListener('click', function () {
         openCardModal(card);
       });

@@ -175,34 +175,37 @@ a { text-decoration: none; color: inherit; }
 .hero--sub { padding: 30px 32px 20px; }
 .hero--sub .hero-inner { min-height: 67px; }
 
-/* About page only (2026-09-21): "Who We Are" sits inside .hero-inner,
-   which is centered as a max-width:1200px box with the 32px side padding
-   applied one level up on .hero itself — so the heading's left edge lands
-   flush with .hero-inner's own edge. The "Who We Are" story text below it
-   sits inside .about-two-col, which applies that same 32px as its own
-   padding *inside* its max-width:1200px box instead, so the paragraph
-   starts 32px further right than the heading above it. Moving the 32px
-   of horizontal padding down from .hero--about onto .hero-inner (instead
-   of removing it) reproduces .about-two-col's box model exactly, so both
+/* Services/Who We Help/Insights only (2026-09-21): "Who We Do"/"Who We
+   Help"/"Insights" sit inside .hero-inner, which is centered as a
+   max-width:1200px box with the 32px side padding applied one level up
+   on .hero itself — so the heading's left edge lands flush with
+   .hero-inner's own edge. The intro text below each heading sits inside
+   .about-two-col, which applies that same 32px as its own padding
+   *inside* its max-width:1200px box instead, so the paragraph starts
+   32px further right than the heading above it. Moving the 32px of
+   horizontal padding down from .hero--about onto .hero-inner (instead of
+   removing it) reproduces .about-two-col's box model exactly, so both
    end up starting at the same x position. Scoped to .hero--about (added
-   only on about.html's hero) so Services/Who We Help/Insights, whose
-   body text is centered a different way, are unaffected. */
+   only on these three pages' hero, plus page-template-two-column.html) —
+   About's own heading is centered instead, see .hero--center-title
+   below, and is not part of this scoping. */
 .hero--about { padding-left: 0; padding-right: 0; }
 .hero--about .hero-inner { padding: 0 32px; }
 
-/* Services/Who We Help/Insights only (2026-09-21): center each page's
-   relocated hero heading over the body copy below it. .hero h1 is
-   left-aligned by default inside the full-width .hero-inner (max-width:
-   1200px), while the prose paragraph underneath is its own narrower,
-   independently-centered block (.prose-block, max-width:760px, margin:0
-   auto) — so the heading previously sat well to the left of where the
-   centered paragraph starts. Centering the heading's own box (margin:0
-   auto, so it centers within .hero-inner same as .prose-block centers
-   within .content-section) plus centering its text gives both the same
-   center axis on the page. Scoped to .hero--center-title (added only on
-   these three pages' hero) so About — whose heading was separately
-   aligned flush-left with its own left-aligned two-column text — and the
-   homepage are unaffected. */
+/* About page only (2026-09-23): "Who We Are" is centered on the page
+   rather than aligned with any particular block of body copy below it
+   (About's content — the Founder & Principal section, then the
+   two-column intro/cards block — is left-aligned throughout, but the
+   client asked for the heading itself to read centered regardless).
+   .hero h1 is left-aligned by default inside the full-width .hero-inner
+   (max-width: 1200px); centering the heading's own box (margin: 0 auto)
+   plus its text centers it on the same axis the page's content column
+   uses. This class was originally used by Services/Who We Help/Insights
+   too (2026-09-17–21), before they switched to the flush-left
+   .hero--about alignment above to match their own left-aligned intro
+   text — it's scoped to .hero--center-title (added only on About's hero)
+   so that switch, and the homepage's unrelated full-size hero, are both
+   unaffected by this. */
 .hero--center-title .hero-title-gold {
   margin-left: auto;
   margin-right: auto;
@@ -367,6 +370,50 @@ a { text-decoration: none; color: inherit; }
 .prose-block p:last-child { margin-bottom: 0; }
 .prose-block strong { color: var(--color-pipeline-icon); }
 
+/* Diagram image dropped into a .prose-block (Services page, 2026-09-24):
+   centered under the paragraph text above it rather than stretched to
+   the full column width or left-aligned like the copy. */
+.prose-diagram {
+  display: block;
+  width: 100%;
+  max-width: 408px;
+  margin: 32px auto 0;
+}
+
+/* Services diagram centered in the leftover vertical space beside the
+   cards column (2026-09-24): on wide screens the three intro paragraphs
+   are shorter than the six stacked service cards next to them, and
+   .about-two-col's own align-items: start leaves that leftover space
+   empty below the diagram instead of using it. Scoped to #services
+   .prose-block, and to widths above the 860px breakpoint where the two
+   columns still sit side by side — below that, .about-two-col drops to a
+   single stacked column and the original top-margin-only diagram spacing
+   already looks right, so it's left untouched there. Stretches the text
+   column to match the cards column's full height, then switches it to a
+   column flex layout so the three paragraphs keep their normal position
+   at the top while the diagram's own auto margins split whatever space
+   is left above and below it evenly, centering it in that space. The
+   third paragraph's own margin-bottom is zeroed here too — .prose-block
+   p:last-child normally handles that, but it never matched once the
+   diagram (the block's actual last child) followed the text, which was
+   quietly leaving 20px of fixed spacing above the diagram that the auto
+   margins couldn't split evenly; removing it makes the centering exact. */
+@media (min-width: 861px) {
+  #services .prose-block {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #services .prose-block p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  #services .prose-diagram {
+    margin: auto;
+  }
+}
+
 /* Generic centered-heading + body-copy section for interior pages — same
    look as .pipeline-section without the homepage's connector row, so
    bottom padding is even instead of tight. */
@@ -429,6 +476,44 @@ a { text-decoration: none; color: inherit; }
   grid-template-columns: repeat(2, 1fr);
   max-width: none;
   margin: 0;
+}
+
+/* Services page only (2026-09-24): client asked for its six service cards
+   to read as long horizontal rectangles stacked in a single column,
+   instead of the 2-column grid every other .about-two-col page
+   (About/Who We Help/Insights) still uses. Scoped to this modifier class
+   so it only overrides Services' own .cards-grid — the shared .card
+   styling (background, shadow, hover, the click-modal/hover-popover
+   behavior) is untouched, and every other page's cards-grid is
+   unaffected. The single column here is already the same width the
+   2-column grid used for the whole card pair, so each card reads as a
+   wide bar rather than needing extra height. */
+.about-two-col .cards-grid--stacked {
+  grid-template-columns: 1fr;
+}
+
+/* Services cards made ~20% shorter (2026-09-24): client asked for the
+   stacked content blocks themselves to be shorter, not just laid out in
+   one column. Trims the same three things that were setting each card's
+   height — its own vertical padding, its min-height floor, and the two
+   internal margins between title/paragraph/dot — scoped to
+   `.cards-grid--stacked .card` so only Services' cards shrink; every
+   other page's `.card` (About/Who We Help/Insights, plus the click-modal
+   and hover-popover, which don't use `.card`'s box model at all) is
+   untouched. */
+.about-two-col .cards-grid--stacked .card {
+  padding: 16px 22px;
+  min-height: 118px;
+}
+
+.about-two-col .cards-grid--stacked .card h3 {
+  margin-bottom: 6px;
+}
+
+.about-two-col .cards-grid--stacked .card p {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  line-height: 1.35;
 }
 
 @media (max-width: 860px) {
@@ -904,6 +989,7 @@ a { text-decoration: none; color: inherit; }
 
 .card[tabindex] {
   cursor: pointer;
+  position: relative;
 }
 
 .card[tabindex]:hover {
@@ -913,6 +999,78 @@ a { text-decoration: none; color: inherit; }
 .card[tabindex]:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+}
+
+/* Raise the whole hovered/focused card (not just its .card-popover
+   child) above its sibling cards in the grid. Without this, a sibling
+   card later in the DOM — itself position:relative with z-index:auto —
+   paints on top of this card's popover regardless of the popover's own
+   z-index, since stacking order among same-level positioned siblings
+   with z-index:auto follows DOM order, not the z-index set on a
+   descendant several levels down. */
+@media (hover: hover) and (pointer: fine) {
+  .card[tabindex]:hover,
+  .card[tabindex]:focus-visible {
+    z-index: 30;
+  }
+}
+
+/* ---------- Hover-to-expand popover (2026-09-23) ----------
+   On hover-capable pointers (a real mouse/trackpad — never a touchscreen,
+   which reports `hover: none`), hovering or keyboard-focusing a card
+   reveals a "window" that expands directly out of the card itself,
+   rather than a centered, page-dimming overlay — it's positioned
+   absolutely over the card's own footprint and grows downward to fit
+   its content, so it reads as the card itself opening up, not a
+   separate pop-up appearing elsewhere on the page. It shares
+   .card-modal-body for its internal heading/paragraph/list styling, so
+   a card's detail copy (including Services' offering lists) looks
+   identical whether it's reached by hover or by the click-to-open
+   modal. Clicking (or Enter/Space on a focused card) still opens the
+   full centered modal exactly as before — this is additive, not a
+   replacement — which is what keeps the content reachable on touch
+   devices, where there's no hover to reveal this panel at all.
+
+   No max-height/overflow here (2026-09-24 fix): this popover sits
+   inside the normal page flow (position: absolute against the card,
+   not position: fixed against the viewport), so the page itself
+   simply grows and scrolls to fit it — there's no viewport ceiling
+   to cap it against. An earlier 560px cap was meant as a safety net
+   for the longest card's content, but Services' longest list (11
+   items, Asset Management & ISO 55001) actually renders taller than
+   that at normal viewport widths, so the "safety net" produced an
+   unwanted internal scrollbar on exactly the card it was meant to
+   protect. Letting the popover size to its own content removes that
+   scrollbar for every card, on every page, regardless of how long a
+   given card's detail copy is. */
+
+.card-popover {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: max(100%, 340px);
+  min-height: 100%;
+  background: var(--color-card-bg);
+  border-radius: 6px;
+  box-shadow: 0 20px 48px rgba(22, 22, 22, 0.45);
+  padding: 26px 24px;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) scale(0.98);
+  transform-origin: top center;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card[tabindex]:hover .card-popover,
+  .card[tabindex]:focus-visible .card-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+  }
 }
 
 body.modal-open {
@@ -995,4 +1153,429 @@ body.modal-open {
   .card-modal {
     padding: 40px 22px 28px;
   }
+}
+
+/* ---------- Real-copy pass, round 2 (2026-09-23) ----------
+   New shared building blocks for the fuller website copy supplied in
+   Gray_Oak_Advisory_Website_Copy_Edited_Clean.docx — a mid-page CTA
+   pattern, non-interactive icon cards, bullet lists inside a card's
+   detail copy, the About page's new Founder & Principal section, and
+   Insights' new real article-preview cards. Deliberately minimal: each
+   piece reuses an existing class (.content-section, .cards-heading,
+   .card, .prose-block, .btn-solid/.btn-outline) for everything it can,
+   adding only what those don't already cover. */
+
+.cta-block {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-block p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text-dark);
+  margin-bottom: 28px;
+}
+
+/* Homepage "From Strategy to the Work" and "Where Are You Today?" CTA
+   sections placed side by side (2026-09-24): previously two of the
+   homepage's stacked full-width .content-section CTA blocks, one after
+   the other; now shown as a two-column row instead. Scoped to a new
+   .home-cta-row wrapper around these <section> elements (index.html
+   only) — each section keeps its own .content-section/.cta-block
+   markup and styling completely untouched, so no other page's (or the
+   homepage's own "Start a Conversation") .content-section is affected.
+   The wrapper just arranges its two columns as grid columns and caps
+   their combined width to 1200px, matching the max-width other
+   two-column layouts on the site use; each section's own 32px side
+   padding does the job of a gap between them, so no separate
+   column-gap was needed. Collapses to a single stacked column at the
+   same 860px breakpoint every other two-column layout on the site
+   already uses.
+
+   Each grid column is a .home-cta-col wrapper rather than a bare
+   <section> (2026-09-24 follow-up), so more than one piece of content
+   can stack inside a column: the left column now holds "From Strategy
+   to the Work" followed by "Insights" (moved here from its own
+   full-width section below — see the Insights section moved entry
+   below), and the right column holds "Where Are You Today?" followed
+   by a photo (see the entry below). .home-cta-col itself needs no
+   layout rules of its own — its children are ordinary block-level
+   elements (two <section>s, or a <section> and an <img>) that already
+   stack top to bottom on their own. */
+.home-cta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .home-cta-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Homepage "Insights" section moved under "From Strategy to the Work"
+   (2026-09-24): previously its own full-width .content-section between
+   .home-cta-row and "Start a Conversation"; now the second <section>
+   inside .home-cta-row's left .home-cta-col (see the comment above),
+   directly below "From Strategy to the Work" instead of spanning the
+   full page width. No CSS changes were needed for the section itself —
+   it's still a plain .content-section/.cta-block, just narrower because
+   it now sits in a half-width column; only its position in the DOM (and
+   its wrapping div) changed.
+
+   Homepage photo added under "Where Are You Today?" (2026-09-24): client
+   supplied a reference photo (a Gray Oak advisor handing a signed work
+   order to a seated utility crew member, with colleagues at computer
+   workstations behind them) to place under that section. It's the same
+   photo used briefly in the homepage hero earlier the same day and then
+   reverted (see the Homepage hero photo added, then reverted entry
+   below) — the docx's `image8.jpg` was already confirmed as an exact
+   match to that same scene, so it was reused directly (resized fresh
+   from the source to 1200px wide, `assets/team-handoff-photo.jpg`,
+   distinct from the deleted `hero-team-photo.jpg` asset) rather than
+   re-matching it from scratch. */
+.home-cta-photo {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  margin-top: 12px;
+}
+
+/* Homepage "Insights" section nudged up to align with the photo beside it
+   (2026-09-24): client asked to move "Insights" up until the bottom of
+   its "Read Our Insights" button lines up with the bottom edge of the
+   photo in the column next to it. Measured via Playwright first: the
+   button's bottom sat 31.17px below the photo's bottom at 1400px width.
+   Scoped to `#insights` (unique to this section, index.html only) with
+   a negative top margin pulling it up by that amount — it overlaps into
+   "From Strategy to the Work"'s own bottom padding rather than changing
+   that section's padding or #insights's own padding, so the visible gap
+   between the two sections' text shrinks without touching either
+   section's internal spacing. Only affects this column's own two
+   sections; "Where Are You Today?" and its photo, in the row's other
+   column, are unaffected. */
+#insights {
+  margin-top: -31px;
+}
+
+/* Homepage "Start a Conversation" section — gap above it reduced 20%
+   (2026-09-24): client asked to shrink the empty space between the CTA
+   row above and this section by 20%. That space is just this section's
+   own `.content-section` top padding (70px, shared by every content
+   section site-wide), so a more specific rule scoped to a new
+   `.home-start-cta` modifier class overrides only `padding-top` here —
+   70px × 0.8 = 56px — leaving `.content-section`'s shared padding (and
+   every other page/section that uses it) untouched. */
+.home-start-cta {
+  padding-top: 56px;
+}
+
+/* Homepage "Start a Conversation" section placed inside a blue content
+   block (2026-09-24): client asked to give this closing CTA the same
+   blue treatment as Insights' Featured Insights cards (Steel Blue
+   background #35536B, white heading/body text — see the Featured
+   Insights cards recolored Steel Blue / text set to white entries
+   above). Rather than recoloring the whole full-bleed section — every
+   other .content-section on the site keeps the shared white page
+   background — the heading and .cta-block were wrapped in a new
+   `.cta-blue-block` card-like box centered inside the section, reusing
+   the same border-radius/box-shadow proportions `.card` uses elsewhere
+   rather than the section's own background. Scoped to `.cta-blue-block`
+   (index.html, this section only), so no other page's .content-section,
+   .cards-heading, .cta-block, or .btn-outline is affected — including
+   the homepage's own other .cta-block sections in .home-cta-row. */
+.cta-blue-block {
+  background: #35536B;
+  color: #fff;
+  border-radius: 8px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 48px;
+  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
+}
+
+.cta-blue-block .cards-heading {
+  color: #fff;
+}
+
+.cta-blue-block .cta-block p {
+  color: #fff;
+}
+
+.cta-blue-block .btn-outline {
+  border-color: #fff;
+  color: #fff;
+}
+
+.cta-blue-block .btn-outline:hover {
+  background: #fff;
+  color: #35536B;
+}
+
+@media (max-width: 600px) {
+  .cta-blue-block {
+    padding: 40px 24px;
+  }
+}
+
+/* Homepage "What We Look At" pillar cards — the same .card component
+   used everywhere else, topped with a small icon reusing the connector
+   row's own SVGs directly above them. Originally non-interactive
+   (icon + heading + paragraph, all always visible); switched 2026-09-24
+   to the same click/hover-to-expand pattern as every other page's cards
+   — collapsed to icon + heading by default, with the paragraph moved
+   into a <template class="card-detail"> that js/main.js reveals on
+   click/tap (full modal) or hover/keyboard-focus (card-anchored
+   popover), exactly like the interactive cards elsewhere. See the
+   Homepage pillar cards switched to click/hover-to-expand entry in the
+   project notes for the full change. */
+.card-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+/* Pillar cards, second pass (2026-09-24): client asked for the small gold
+   .card-dot click-affordance to be dropped from these five cards (it's
+   still used everywhere else) and for all five — People, Process, Data,
+   Technology, Assets — to fit on one row instead of wrapping to two.
+   The dot's markup was removed straight from index.html rather than
+   hidden with CSS, since these cards no longer have a second flex child
+   to space against; `justify-content: center` replaces the old
+   space-between so the icon+heading sit centered in the shorter card
+   instead of pinned to the top. Scoped to `.pillar-cards` (already a
+   second class on this one grid) so the shared `.cards-grid`/`.card`
+   rules every other page's cards use are untouched. */
+.pillar-cards {
+  margin-top: 44px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  max-width: 1120px;
+}
+
+.pillar-cards .card {
+  min-height: 108px;
+  padding: 18px 12px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.pillar-cards .card h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+/* Narrowed to a min+max range (not a plain max-width like the rest of
+   the site's breakpoints) so this doesn't fight the shared
+   `.cards-grid { grid-template-columns: 1fr; }` mobile rule further down
+   this file — that rule and this one are equal specificity, so on a
+   narrow phone both would match a plain max-width query and whichever
+   is later in the file would win regardless of which is more specific
+   to the viewport. */
+@media (min-width: 861px) and (max-width: 900px) {
+  .pillar-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Restated (not just inherited from the shared `.cards-grid` mobile rule
+   above) because the unconditional `.pillar-cards` rule higher up sits
+   later in the file than that shared rule and would otherwise win at
+   every width, phones included, at equal specificity. */
+@media (max-width: 860px) {
+  .pillar-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Bullet lists inside a card's expanded detail copy — Services' new
+   offering lists are the first place a card's detail text needed real
+   list markup; the click-to-open modal had no list styling before, since
+   every card's detail copy used to be plain paragraphs. */
+.card-modal-body ul {
+  margin: 0 0 14px;
+  padding-left: 18px;
+}
+
+.card-modal-body li {
+  line-height: 1.5;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+/* About page — Founder & Principal section. Originally placed below the
+   two-column intro/cards grid; moved above it (2026-09-23) so it's the
+   first thing a visitor reads under the hero, per client request. It
+   still sits inside About's own dark content background. The bio
+   paragraphs reuse .prose-block (already styled light-on-dark for this
+   page); the name/credentials line and the pull-quote heading are gold,
+   which reads clearly on both the light and dark page backgrounds
+   without needing a separate override. The divider that used to sit
+   above this block (separating it from the two-column section) now
+   sits below it instead, since it's the two-column section that follows
+   it now — .about-two-col's own top padding (70px) supplies the rest of
+   the gap before "How We Think About the Work". */
+.founder-block {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 70px 32px 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.founder-block h2 {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.founder-name {
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 24px;
+  font-size: 1.05rem;
+}
+
+.founder-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  margin-bottom: 24px;
+  color: var(--color-accent);
+}
+
+/* Founder photo + name/badge/quote, side by side above the bio prose
+   (2026-09-23, images added from the client's source document; the
+   credential badge moved from the bio prose to directly under the name
+   here later the same day). Stacks to a single column on narrow
+   screens. */
+.founder-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.founder-photo {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+.founder-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.founder-header-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.founder-header-text .founder-name {
+  margin-bottom: 10px;
+}
+
+.founder-header-text .founder-quote {
+  margin-bottom: 0;
+}
+
+@media (max-width: 560px) {
+  .founder-header {
+    flex-direction: column;
+  }
+
+  .founder-photo {
+    width: 120px;
+  }
+}
+
+/* AMP / IAM member credential badges, placed directly under the founder's
+   name (moved here 2026-09-23 from inline in the bio prose, where it
+   first shipped). The source graphic has a transparent background but
+   its logo/text render in dark ink, so it needs a light backing plate to
+   stay legible against this section's dark background (unlike the
+   founder photo above, which already has an opaque dark background of
+   its own and sits directly on the page). */
+.founder-credential-badge {
+  display: inline-block;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin: 4px 0 16px;
+}
+
+.founder-credential-badge img {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+}
+
+.founder-closing {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.15rem;
+  margin-top: 28px;
+  color: var(--color-accent);
+}
+
+/* Insights page — real article previews, distinct from the six topic
+   cards above them: static (no tabindex/click-to-expand, since there's
+   no article page yet for "Read More" to open), each card ending in a
+   small gold text link instead. */
+
+/* Featured Insights cards recolored Steel Blue (2026-09-24, client-supplied
+   swatch #35536B — one of the confirmed brand palette colors, previously
+   unused on any card). Scoped to `.cards-grid--featured` so only these
+   three static article-preview cards change; the six interactive topic
+   cards above them on this page, and every card on About/Services/Who We
+   Help, keep the shared Deep Green `.card` background. Hover gets its own
+   lightened Steel Blue (`#61788B`, the same proportional lighten used for
+   the shared Deep Green hover color) instead of the default hover
+   variable, so hovering still gives visible feedback in the new color. */
+.cards-grid--featured .card {
+  background: #35536B;
+}
+
+.cards-grid--featured .card:hover {
+  background: #61788B;
+}
+
+/* Featured Insights card text set to white (2026-09-24), on top of the
+   Steel Blue background above: overrides the shared gold `--color-card-text`
+   for the card itself (its `h3`/`p` don't set their own color, so they
+   inherit this) plus the "Read More" link, which does set its own gold
+   color and needs its own override. Scoped the same way as the background
+   change, so gold card text elsewhere on the site — the six topic cards
+   above these on Insights, and every card on About/Services/Who We Help —
+   is untouched. */
+.cards-grid--featured .card {
+  color: #fff;
+}
+
+.cards-grid--featured .card-readmore {
+  color: #fff;
+}
+
+.card-readmore {
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.card-readmore:hover {
+  text-decoration: underline;
 }
