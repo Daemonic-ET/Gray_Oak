@@ -605,6 +605,30 @@ a { text-decoration: none; color: inherit; }
     "photo right";
 }
 
+/* Desktop-only fix (2026-09-28, client request): on About, Services, and
+   Insights, the shared .about-two-col grid puts an empty cell above the
+   text column and the page's own heading (e.g. "Our Services") above the
+   cards column, in row 1 — so the description text, sitting in row 2,
+   starts below that row's height (the heading's own ~41px, plus the
+   grid's 24px row-gap). Who We Help's grid-template-areas above has no
+   such "heading" row at all — its "text" cell IS row 1 — so its
+   description text was starting ~65px higher than the other three pages',
+   even though every page shares the same 70px padding-top. Measured the
+   other pages' row-1 height (heading + row-gap) via Playwright at 1400px:
+   65px. Adding that as margin-top on just the text column pushes it (and
+   the photo below it, which follows in the next row) down by the same
+   amount, without touching .who-we-help-right (it spans both rows and
+   still top-aligns to the grid's own top edge via align-items: start, so
+   "Where You Are Matters"/"Utilities & Infrastructure Owners" don't move).
+   Scoped to desktop (min-width: 861px) — on mobile, .about-two-col's own
+   stacking order already puts "text" first for every page including this
+   one, so the two never diverged there. */
+@media (min-width: 861px) {
+  .who-we-help-two-col .prose-block {
+    margin-top: 65px;
+  }
+}
+
 .who-we-help-photo {
   grid-area: photo;
   display: block;
@@ -798,6 +822,16 @@ a { text-decoration: none; color: inherit; }
     grid-template-areas:
       "content"
       "photo";
+  }
+
+  /* Stacked mobile layout only (desktop's side-by-side row is untouched):
+     .tech-providers-row has no row-gap, so with content and photo stacked
+     into separate grid rows the photo sat flush against the paragraph
+     text above it — 0px, versus the heading-to-paragraph gap a few lines
+     up (.cards-heading.tech-providers-heading's 14px margin-bottom).
+     Matched that same 14px here so the two gaps read as consistent. */
+  .tech-providers-photo {
+    margin-top: 14px;
   }
 }
 
