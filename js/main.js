@@ -1,5 +1,11 @@
 // Gray Oak Advisory — minimal site behavior (no build tools required)
 
+// Contact page form (2026-09-28, preliminary): the site is static with no
+// backend, so there's nowhere for a real form submission to post yet.
+// CONTACT_EMAIL below is a placeholder — replace it with the real inbox
+// this should reach before the contact page goes live.
+var CONTACT_EMAIL = 'ask@grayoakadvisory.com';
+
 document.addEventListener('DOMContentLoaded', function () {
   var toggle = document.querySelector('.nav-toggle');
   var links = document.querySelector('.nav-links');
@@ -163,6 +169,37 @@ document.addEventListener('DOMContentLoaded', function () {
       if (event.key === 'Escape' && !modalOverlay.hidden) {
         closeCardModal();
       }
+    });
+  }
+
+  // Contact form (2026-09-28, preliminary): with no backend to post to,
+  // "Send" instead opens the visitor's own email app with their answers
+  // already filled into a message addressed to CONTACT_EMAIL above. Only
+  // runs on contact.html — every other page has no #contact-form, so
+  // this block is skipped everywhere else.
+  var contactForm = document.getElementById('contact-form');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      var name = document.getElementById('contact-name').value.trim();
+      var organization = document.getElementById('contact-org').value.trim();
+      var email = document.getElementById('contact-email').value.trim();
+      var message = document.getElementById('contact-message').value.trim();
+
+      var subject = 'New inquiry from ' + (name || 'the Gray Oak website');
+      var body = [
+        'Name: ' + name,
+        'Organization: ' + (organization || '(not provided)'),
+        'Email: ' + email,
+        '',
+        message
+      ].join('\n');
+
+      window.location.href = 'mailto:' + CONTACT_EMAIL
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
     });
   }
 });

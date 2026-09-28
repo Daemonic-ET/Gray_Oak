@@ -136,6 +136,30 @@ a { text-decoration: none; color: inherit; }
   color: var(--color-bg-page);
 }
 
+/* Solid Steel Blue button, white text — same shape/sizing as .btn-outline
+   but filled rather than bordered. Added 2026-09-25 for Services' and Who
+   We Help's closing CTA buttons, replacing an earlier pass that wrapped
+   the plain .btn-outline button in a full padded .cta-blue-block card
+   (the same treatment the homepage's "Contact Gray Oak" button sits in)
+   — the client asked for just the button itself to read blue with white
+   lettering, not a surrounding blue block, so this is a direct button
+   fill instead of a wrapper. */
+.btn-blue {
+  display: inline-block;
+  padding: 10px 26px;
+  background: #35536B;
+  border: 1.5px solid #35536B;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 2px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-blue:hover {
+  background: #263e51;
+  border-color: #263e51;
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -185,27 +209,26 @@ a { text-decoration: none; color: inherit; }
    32px further right than the heading above it. Moving the 32px of
    horizontal padding down from .hero--about onto .hero-inner (instead of
    removing it) reproduces .about-two-col's box model exactly, so both
-   end up starting at the same x position. Scoped to .hero--about (added
-   only on these three pages' hero, plus page-template-two-column.html) —
-   About's own heading is centered instead, see .hero--center-title
-   below, and is not part of this scoping. */
+   end up starting at the same x position. Scoped to .hero--about, used
+   by these three pages' hero plus page-template-two-column.html; as of
+   2026-09-24 About's own hero also uses this class again (see the About
+   hero heading aligned with the other pages entry further below), so
+   all four interior pages now share the same flush-left hero alignment. */
 .hero--about { padding-left: 0; padding-right: 0; }
 .hero--about .hero-inner { padding: 0 32px; }
 
-/* About page only (2026-09-23): "Who We Are" is centered on the page
-   rather than aligned with any particular block of body copy below it
-   (About's content — the Founder & Principal section, then the
-   two-column intro/cards block — is left-aligned throughout, but the
-   client asked for the heading itself to read centered regardless).
-   .hero h1 is left-aligned by default inside the full-width .hero-inner
-   (max-width: 1200px); centering the heading's own box (margin: 0 auto)
-   plus its text centers it on the same axis the page's content column
-   uses. This class was originally used by Services/Who We Help/Insights
-   too (2026-09-17–21), before they switched to the flush-left
-   .hero--about alignment above to match their own left-aligned intro
-   text — it's scoped to .hero--center-title (added only on About's hero)
-   so that switch, and the homepage's unrelated full-size hero, are both
-   unaffected by this. */
+/* .hero--center-title (2026-09-17–21, then About-only 2026-09-23–24):
+   centers a hero heading on the page rather than aligning it flush-left
+   with the body copy below it. Originally used by Services/Who We
+   Help/Insights, then narrowed to About only when the client asked for
+   "Who We Are" to read centered while the rest of that page stayed
+   left-aligned. As of 2026-09-24, About's hero was switched back to the
+   flush-left .hero--about treatment above (matching Services/Who We
+   Help/Insights and page-template-two-column.html again — see the About
+   hero heading aligned with the other pages entry further below), so
+   this class is currently unused on any live page. Left in place as a
+   reusable option, the same way page-template-standard.html is kept
+   unused rather than deleted. */
 .hero--center-title .hero-title-gold {
   margin-left: auto;
   margin-right: auto;
@@ -478,10 +501,14 @@ a { text-decoration: none; color: inherit; }
   margin: 0;
 }
 
-/* Services page only (2026-09-24): client asked for its six service cards
+/* Services page (2026-09-24; reused on Who We Help's "Where You Are
+   Matters" grid 2026-09-25): client asked for Services' six service cards
    to read as long horizontal rectangles stacked in a single column,
    instead of the 2-column grid every other .about-two-col page
-   (About/Who We Help/Insights) still uses. Scoped to this modifier class
+   (About/Insights) still uses; Who We Help's own five stage cards were
+   switched to the same treatment later, per a client-supplied reference
+   screenshot, and had their `.card-dot` markup removed outright at the
+   same time (see the entry below). Scoped to this modifier class
    so it only overrides Services' own .cards-grid — the shared .card
    styling (background, shadow, hover, the click-modal/hover-popover
    behavior) is untouched, and every other page's cards-grid is
@@ -492,15 +519,16 @@ a { text-decoration: none; color: inherit; }
   grid-template-columns: 1fr;
 }
 
-/* Services cards made ~20% shorter (2026-09-24): client asked for the
-   stacked content blocks themselves to be shorter, not just laid out in
-   one column. Trims the same three things that were setting each card's
-   height — its own vertical padding, its min-height floor, and the two
-   internal margins between title/paragraph/dot — scoped to
-   `.cards-grid--stacked .card` so only Services' cards shrink; every
-   other page's `.card` (About/Who We Help/Insights, plus the click-modal
-   and hover-popover, which don't use `.card`'s box model at all) is
-   untouched. */
+/* Services cards made ~20% shorter (2026-09-24; automatically inherited by
+   Who We Help's stacked cards 2026-09-25, see the entry below): client
+   asked for Services' stacked content blocks themselves to be shorter,
+   not just laid out in one column. Trims the same three things that were
+   setting each card's height — its own vertical padding, its min-height
+   floor, and the two internal margins between title/paragraph/dot —
+   scoped to `.cards-grid--stacked .card` so only pages using this
+   modifier class shrink; About's and Insights' own `.card` (plus the
+   click-modal and hover-popover, which don't use `.card`'s box model at
+   all) is untouched. */
 .about-two-col .cards-grid--stacked .card {
   padding: 16px 22px;
   min-height: 118px;
@@ -535,34 +563,114 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
-/* About page only (2026-09-21): content space (the area between the hero
-   and footer) uses the same dark gray gradient as the footer, instead of
-   the site-wide white content background — mirrors the same
-   --color-bg-footer treatment already used for index2.html's
-   .home-content-bg--dark. Scoped to .about-content-bg--dark, a wrapper
-   div around .about-two-col in about.html only, so every other page
-   keeps the plain white content background. The wrapper has no width
-   constraint of its own (same as .home-content-bg), so the gradient
-   paints edge-to-edge behind .about-two-col's centered 1200px column,
-   matching how the footer itself paints full-bleed. Recolors the intro
-   prose and "What We Believe" heading to light text so they stay
-   readable; the card grid itself needs no change since its deep-green/
-   gold-text styling already works on any page background. */
-.about-content-bg--dark {
-  background: var(--color-bg-footer);
+/* Who We Help only (2026-09-25): client attached a reference photo (two
+   crew members working an excavated trench on a water main valve, shot
+   from above) and asked to add it to the right of the intro description
+   text. First pass stacked the "Where You Are Matters" heading and cards
+   underneath the photo, in the right column only; the client then asked
+   for that section to sit underneath the description text instead, so
+   it was widened to its own full-width row below both the text and the
+   photo rather than being confined to the photo's column. This is a
+   page-only variant of the shared .about-two-col grid (used as-is by
+   About, Services, and Insights) — a modifier class on the same wrapper
+   div adds a "photo" cell beside "text" in row one, then lets "heading"
+   and "cards" each span both columns in their own full-width rows below,
+   so nothing here touches the shared grid areas or rules those other
+   pages still rely on. */
+.who-we-help-two-col {
+  grid-template-areas:
+    "text    right"
+    "heading right"
+    "cards   right";
 }
 
-.about-content-bg--dark .prose-block {
-  color: #fff;
+.who-we-help-photo {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
-.about-content-bg--dark .prose-block strong {
-  color: var(--color-accent);
+/* "Utilities & Infrastructure Owners" moved under the photo (2026-09-28,
+   client request): previously its own full-width .content-section below
+   the whole two-column intro (spanning the page, centered, alongside a
+   matching "Technology & Service Providers" section — that one is
+   unchanged). Now it's grouped with the photo in a single right-column
+   wrapper (.who-we-help-right, grid-area: right, spanning all three of
+   the left column's rows) so the two stack normally underneath each
+   other regardless of how tall the left column's stacked cards get —
+   simpler than trying to line up a second set of grid rows across both
+   columns. .who-we-help-utilities is a plain div, not .content-section,
+   specifically so it does NOT pick up .about-two-col .content-section's
+   display: contents (which would otherwise turn its own heading/prose
+   into direct grid items competing for the "heading"/"text" areas
+   already claimed by the intro text and "Where You Are Matters"). Its
+   heading keeps the shared .cards-heading class for the same font/size
+   as every other heading on the site, with .who-we-help-utilities-
+   heading overriding the two-col-context margin-bottom it would
+   otherwise inherit (0, from .about-two-col .cards-heading) back to a
+   bit of breathing room above the paragraph — same dual-class pattern
+   as .home-hardpart-heading on the homepage. The heading and paragraph
+   text below it were briefly both centered per a 2026-09-28 follow-up
+   request, then the paragraph text was reverted back to left-aligned
+   per a second follow-up the same day — .who-we-help-utilities-heading
+   still keeps .cards-heading's own centered default for the heading
+   only (so no text-align override is needed there), and
+   .who-we-help-utilities .prose-block now explicitly sets left
+   alignment so it doesn't inherit centering from anywhere else. */
+.who-we-help-right {
+  grid-area: right;
 }
 
-.about-content-bg--dark .cards-heading {
-  color: var(--color-accent);
+.who-we-help-utilities {
+  margin-top: 24px;
 }
+
+/* Compound selector (matches .cards-heading.who-we-help-utilities-heading
+   on the element itself) so this ties the specificity of ".about-two-col
+   .cards-heading" (two classes) instead of losing to it — a single-class
+   ".who-we-help-utilities-heading" selector here would be outweighed by
+   that rule and get silently overridden. */
+.cards-heading.who-we-help-utilities-heading {
+  margin-bottom: 14px;
+}
+
+.who-we-help-utilities .prose-block {
+  text-align: left;
+}
+
+@media (max-width: 860px) {
+  .who-we-help-two-col {
+    grid-template-areas:
+      "text"
+      "right"
+      "heading"
+      "cards";
+  }
+}
+
+/* About page content background reverted to white (2026-09-24): from
+   2026-09-21 through 2026-09-23, About's content area (between the hero
+   and footer) used the same dark gray gradient as the footer instead of
+   the site-wide white background, via a .about-content-bg--dark
+   modifier class on the wrapper div around .about-two-col and the
+   founder block, with the intro prose, "How We Think About the Work"
+   heading, and Founder & Principal heading recolored to light/gold text
+   to stay readable against it. The client asked to match About's
+   content background to the other three interior pages, so that
+   modifier class (and these three rules) were removed outright — the
+   plain .about-content-bg wrapper carries no background of its own, so
+   the shared white `body { background: var(--color-bg-page); }` now
+   shows through here exactly as it does on Services/Who We Help/
+   Insights. .prose-block and .cards-heading fall back to their
+   site-wide default (dark) text color as a result — matching every
+   other page's plain-white content section — while .founder-name/
+   .founder-quote/.founder-closing keep their own explicit gold color
+   (set directly on those rules, not through this now-removed modifier),
+   the same gold accent used elsewhere on white backgrounds throughout
+   the site (nav/button hovers, etc). The card grid itself needed no
+   change either way, since its deep-green/gold-text styling already
+   works on any page background. */
 
 /* About page (2026-09-21): tried a custom directional shadow, then a
    warm gold-glow shadow, for the "What We Believe" cards specifically —
@@ -1247,6 +1355,65 @@ body.modal-open {
   margin-top: 12px;
 }
 
+/* Homepage "The hard part is making it work." section, given a photo to
+   its left (2026-09-24, restructured 2026-09-25 per a client reference
+   screenshot): an aerial shot of a water treatment facility built into a
+   golf course and surrounding residential neighborhood, matched from the
+   client's source document. The heading sits on its own row above just
+   the text column (the same grid-template-areas pattern .about-two-col
+   uses for its own heading/cards pairing — an empty first-row cell over
+   the photo reserves that space so the heading doesn't pull the photo
+   row down), so align-items: center on the row below centers the photo
+   against the paragraph copy alone, not the taller heading+copy block
+   together — matching the reference, where the photo sits noticeably
+   lower than the heading rather than centered against the whole column.
+   .home-hardpart overrides the shared .content-section's own centered
+   text-align; .prose-block already sets its own left-aligned text
+   regardless, so only .cards-heading needed an explicit override here. */
+.home-hardpart {
+  text-align: left;
+}
+
+.home-hardpart-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    ".     heading"
+    "photo text";
+  column-gap: 48px;
+  row-gap: 14px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-hardpart-heading {
+  grid-area: heading;
+  text-align: left;
+}
+
+.home-hardpart-row .prose-block {
+  grid-area: text;
+}
+
+.home-hardpart-photo {
+  grid-area: photo;
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 860px) {
+  .home-hardpart-row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "photo"
+      "heading"
+      "text";
+  }
+}
+
 /* Homepage "Insights" section nudged up to align with the photo beside it
    (2026-09-24): client asked to move "Insights" up until the bottom of
    its "Read Our Insights" button lines up with the bottom edge of the
@@ -1417,17 +1584,29 @@ body.modal-open {
    still sits inside About's own dark content background. The bio
    paragraphs reuse .prose-block (already styled light-on-dark for this
    page); the name/credentials line and the pull-quote heading are gold,
-   which reads clearly on both the light and dark page backgrounds
-   without needing a separate override. The divider that used to sit
-   above this block (separating it from the two-column section) now
-   sits below it instead, since it's the two-column section that follows
-   it now — .about-two-col's own top padding (70px) supplies the rest of
-   the gap before "How We Think About the Work". */
+   which reads clearly against the page's plain white background (see
+   the About content background reverted to white entry further below).
+   As of 2026-09-24 this block sits back at the bottom of the page,
+   after the two-column "How We Think About the Work" section, reversing
+   the 2026-09-23 reorder — so its divider moved from border-bottom back
+   to border-top, separating it from the two-column block that now
+   precedes it again, and its padding flipped to match (more room above
+   the divider than below, mirroring .about-two-col's own 70px bottom
+   padding above it and the site's shared 70px pre-footer spacing
+   below). The border color also changed from a white-on-dark
+   rgba(255,255,255,0.12) hairline to the site's standard light divider
+   color, var(--color-border), since it now needs to read against white
+   instead of the removed dark gradient. */
 .founder-block {
   max-width: 760px;
   margin: 0 auto;
-  padding: 70px 32px 50px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 50px 32px 70px;
+  border-top: 1px solid var(--color-border);
+  /* Establishes a new block formatting context so this block's own
+     height always contains the floated photo below (see .founder-photo)
+     regardless of how much text follows it — the modern equivalent of
+     the old ::after { clear: both } clearfix hack. */
+  display: flow-root;
 }
 
 .founder-block h2 {
@@ -1438,34 +1617,40 @@ body.modal-open {
 .founder-name {
   font-weight: 700;
   color: var(--color-accent);
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   font-size: 1.05rem;
 }
 
 .founder-quote {
   font-family: var(--font-heading);
   font-style: italic;
-  font-weight: 400;
-  font-size: 1.125rem;
+  font-weight: 700;
+  font-size: 2rem;
   margin-bottom: 24px;
   color: var(--color-accent);
 }
 
-/* Founder photo + name/badge/quote, side by side above the bio prose
-   (2026-09-23, images added from the client's source document; the
-   credential badge moved from the bio prose to directly under the name
-   here later the same day). Stacks to a single column on narrow
-   screens. */
-.founder-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 28px;
-  margin-bottom: 28px;
-}
-
+/* Founder photo, floated left so the name, credential badge, pull-quote,
+   and bio prose that follow it in the markup all wrap around it
+   (2026-09-24, matching a second reference layout screenshot the client
+   sent — replacing the previous flex-row pairing of just the photo with
+   the name/badge/quote via the now-removed .founder-header/.founder-
+   header-text wrappers). A float is taken out of normal flow, so a
+   sibling that comes after it in the source wraps around it two
+   different ways depending on what kind of box it is: .founder-badge-
+   quote-row (a flex container, which forms its own block formatting
+   context) is sized to the remaining ~528px beside the float without
+   overlapping it, the same width the old flex column gave it; plain
+   text — the name paragraph, and every paragraph inside .prose-block —
+   has its line boxes narrowed around the float instead, the same way
+   text wraps around a floated image in a magazine layout, so the first
+   line or two of the bio prose (whichever falls within the photo's
+   ~212px rendered height) sit narrower before the text clears the float
+   and returns to the block's full width. */
 .founder-photo {
-  flex-shrink: 0;
+  float: left;
   width: 140px;
+  margin: 0 28px 20px 0;
 }
 
 .founder-photo img {
@@ -1476,25 +1661,77 @@ body.modal-open {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
 
-.founder-header-text {
+/* Credential badge + pull-quote, side by side, matching the client's own
+   reference mockup (2026-09-24, third pass on this row — its own layout
+   is unchanged by the float restructure just above; only its parent
+   changed, from the removed .founder-header-text to .founder-block
+   itself, and it now sits beside the photo via the float wrap described
+   above rather than a flex column). The reference shows the badge
+   sitting snug beside the quote with no surrounding white box, so the
+   badge's own white backing plate/padding is zeroed out here too
+   (harmless either way against this page's white background, but the
+   padding was eating into the narrow space available for the quote).
+   The quote's font-size is reduced accordingly — see the entry below —
+   to still wrap onto exactly two lines in the ~330px left over next to
+   the smaller badge, matching the reference's proportions. */
+.founder-badge-quote-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 14px;
+  margin-bottom: 28px;
+}
+
+.founder-badge-quote-row .founder-credential-badge {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.founder-badge-quote-row .founder-credential-badge img {
+  width: 150px;
+}
+
+/* min-width forces the quote onto its own line, below the badge, once
+   the available width beside the floated photo gets too narrow to hold
+   both side by side at the current font-size (a smaller-scale version
+   of the same "squeeze zone" fix used elsewhere on this row: without a
+   floor here, there's a band of column widths — this available width
+   shrinks continuously as the viewport narrows, well before the 560px
+   breakpoint that drops the float on phones — where badge and quote
+   still share a row but too little width is left for the quote to wrap
+   to two lines at 32px). */
+.founder-badge-quote-row .founder-quote {
   flex: 1;
-  min-width: 200px;
-}
-
-.founder-header-text .founder-name {
-  margin-bottom: 10px;
-}
-
-.founder-header-text .founder-quote {
+  min-width: 330px;
   margin-bottom: 0;
 }
 
 @media (max-width: 560px) {
-  .founder-header {
-    flex-direction: column;
+  /* Below 560px the photo drops its float and stacks full-width above
+     the name/badge/quote/bio prose instead of having them wrap around
+     it — wrapping a phone-narrow column of text around even a 120px
+     photo reads too cramped to be worth it at this size. */
+  .founder-photo {
+    float: none;
+    width: 120px;
+    margin: 0 0 20px;
   }
 
-  .founder-photo {
+  /* The quote wraps to its own line below the badge on phones (the
+     .founder-badge-quote-row min-width rule above already forces that
+     once the column gets this narrow), so the 32px desktop size (set
+     above) would still be a bit large relative to the badge here.
+     Stepped down to 1.5rem/24px so the two stay in proportion. */
+  .founder-quote {
+    font-size: 1.5rem;
+  }
+
+  /* The badge's fixed 150px desktop width (set above) is oversized
+     next to a phone-width photo/name column — shrunk to match. */
+  .founder-badge-quote-row .founder-credential-badge img {
     width: 120px;
   }
 }
@@ -1578,4 +1815,127 @@ body.modal-open {
 
 .card-readmore:hover {
   text-decoration: underline;
+}
+
+/* ---------- Contact page (2026-09-28, preliminary) ---------- */
+
+/* Lets a real <button> pick up .btn-blue's look — every other .btn-blue
+   on the site so far is an <a>, so this adds only what a <button> needs
+   on top (browsers otherwise give it their own font/cursor/border-radius
+   defaults) without touching the shared .btn-blue rule those links use. */
+button.btn-blue {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Contact page's "Start a Conversation" intro block (2026-09-28): a plain
+   blue rectangle behind the heading and intro line, not the rounded,
+   shadowed card look .cta-blue-block uses elsewhere (homepage's own
+   closing CTA, and briefly Services/Who We Help's before those were
+   simplified to plain buttons) — the client asked for "a regular blue
+   rectangle" instead of that card treatment, so this is its own class
+   rather than a reuse of .cta-blue-block, with no border-radius and no
+   box-shadow, everything else (background, white text, sizing/padding)
+   matching it. Vertical padding (space above/below the text) was reduced
+   25% from .cta-blue-block's own 56px/40px figures — 42px desktop, 30px
+   phones — per a same-day follow-up; horizontal padding is unchanged. */
+.contact-blue-rect {
+  background: #35536B;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 42px 48px;
+}
+
+.contact-blue-rect .cards-heading {
+  color: #fff;
+}
+
+.contact-blue-rect .cta-block p {
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .contact-blue-rect {
+    padding: 30px 24px;
+  }
+}
+
+.contact-form {
+  max-width: 560px;
+  margin: 40px auto 0;
+  text-align: left;
+}
+
+.contact-form .form-field {
+  margin-bottom: 22px;
+}
+
+.contact-form label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text-dark);
+  margin-bottom: 8px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-dark);
+  background: var(--color-bg-page);
+  transition: border-color 0.2s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.contact-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.contact-form .form-actions {
+  text-align: center;
+  margin-top: 6px;
+}
+
+.contact-direct {
+  max-width: 560px;
+  margin: 32px auto 0;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--color-text-dark);
+}
+
+.contact-direct a {
+  color: #35536B;
+  font-weight: 600;
+}
+
+/* Company/location line, its own short section directly under the form
+   so it reads like a signature block rather than crowding the form's
+   own centered intro copy above. */
+.contact-company {
+  padding-top: 0;
+}
+
+.contact-company-name {
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 4px;
+}
+
+.contact-company-location {
+  color: var(--color-text-dark);
 }
