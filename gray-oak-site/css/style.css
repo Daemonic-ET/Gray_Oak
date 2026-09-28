@@ -303,15 +303,21 @@ a { text-decoration: none; color: inherit; }
   color: var(--color-accent);
   text-align: center;
   min-width: 120px;
+  max-width: 220px;
 }
 
 .icon-item svg { width: 34px; height: 34px; }
 
+/* Switched 2026-09-28 from short, all-caps labels ("TRUSTED ADVISORS") to
+   full sentences ("From wherever you're starting.") when the icon strip
+   went from four value-prop words to three roots/branches/leaf lines —
+   uppercase + wide letter-spacing reads fine on a two-word label but
+   shouts on a full sentence, so both were dropped in favor of plain
+   sentence case at a slightly larger size. */
 .icon-item span {
-  font-size: 0.78rem;
-  letter-spacing: 0.03em;
+  font-size: 0.9rem;
+  line-height: 1.4;
   color: var(--color-text-on-dark-muted);
-  text-transform: uppercase;
 }
 
 .icon-divider {
@@ -576,15 +582,31 @@ a { text-decoration: none; color: inherit; }
    div adds a "photo" cell beside "text" in row one, then lets "heading"
    and "cards" each span both columns in their own full-width rows below,
    so nothing here touches the shared grid areas or rules those other
-   pages still rely on. */
+   pages still rely on.
+
+   "Where You Are Matters" swapped with the photo (2026-09-28, client
+   request): the client asked to swap the positions of "Where You Are
+   Matters" and the photo that had been sitting to its right. The photo
+   now sits directly under the intro text in the left column (its own
+   "photo" row, grid-area set below), and "Where You Are Matters" moved
+   into .who-we-help-right in the DOM, ahead of the Utilities block, so
+   the right column now reads "Where You Are Matters" then "Utilities &
+   Infrastructure Owners" stacked top to bottom. Moving the cards-section
+   inside .who-we-help-right doesn't change how it renders — it still
+   matches the descendant selector ".about-two-col .cards-section" below,
+   which sets display: contents on it regardless of nesting depth, so its
+   heading and cards-grid render as plain stacked blocks inside the right
+   column exactly as "Utilities" does, just with a .cards-grid that lays
+   itself out as its own internal grid (unaffected by the parent no
+   longer being the areas grid). */
 .who-we-help-two-col {
   grid-template-areas:
-    "text    right"
-    "heading right"
-    "cards   right";
+    "text  right"
+    "photo right";
 }
 
 .who-we-help-photo {
+  grid-area: photo;
   display: block;
   width: 100%;
   border-radius: 8px;
@@ -595,10 +617,10 @@ a { text-decoration: none; color: inherit; }
    client request): previously its own full-width .content-section below
    the whole two-column intro (spanning the page, centered, alongside a
    matching "Technology & Service Providers" section — that one is
-   unchanged). Now it's grouped with the photo in a single right-column
-   wrapper (.who-we-help-right, grid-area: right, spanning all three of
-   the left column's rows) so the two stack normally underneath each
-   other regardless of how tall the left column's stacked cards get —
+   unchanged). It's grouped with "Where You Are Matters" in a single
+   right-column wrapper (.who-we-help-right, grid-area: right, spanning
+   both of the left column's rows) so the two stack normally underneath
+   each other regardless of how tall "Where You Are Matters" gets —
    simpler than trying to line up a second set of grid rows across both
    columns. .who-we-help-utilities is a plain div, not .content-section,
    specifically so it does NOT pick up .about-two-col .content-section's
@@ -622,8 +644,19 @@ a { text-decoration: none; color: inherit; }
   grid-area: right;
 }
 
+/* margin-top: 84px (not the 24px used elsewhere for heading-to-content
+   spacing) is deliberate here — it centers this section vertically in the
+   gap between the last "In Transition" card above and the Technology &
+   Service Providers photo below (per a 2026-09-28 follow-up request).
+   The right column (cards + Utilities) is taller than the left column's
+   photo, so it alone determines where the page content below this two-col
+   row starts — pushing Utilities down with margin-top pushes everything
+   after it (including that photo) down by the same amount, leaving the
+   gap *below* Utilities fixed at 84px regardless of this value. Matching
+   margin-top to that same 84px is what makes the gap above equal it too,
+   centering the section between the last card and the photo. */
 .who-we-help-utilities {
-  margin-top: 24px;
+  margin-top: 84px;
 }
 
 /* Compound selector (matches .cards-heading.who-we-help-utilities-heading
@@ -635,6 +668,19 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 14px;
 }
 
+/* "Where You Are Matters" heading given breathing room above its first
+   card (2026-09-28, client request): moving the cards-section into
+   .who-we-help-right (a plain block, not the .about-two-col areas grid —
+   see the comment above) meant the heading and card grid lost the 24px
+   row-gap that separates Services' "Our Services" heading from its own
+   card grid, since .about-two-col .cards-heading sets margin-bottom: 0
+   for the grid-row approach those other pages use. Same compound-selector
+   fix as .who-we-help-utilities-heading above, set to the same 24px as
+   Services' row-gap so the two sections match. */
+.cards-heading.who-we-help-matters-heading {
+  margin-bottom: 24px;
+}
+
 .who-we-help-utilities .prose-block {
   text-align: left;
 }
@@ -643,9 +689,115 @@ a { text-decoration: none; color: inherit; }
   .who-we-help-two-col {
     grid-template-areas:
       "text"
-      "right"
-      "heading"
-      "cards";
+      "photo"
+      "right";
+  }
+}
+
+/* Who We Help "Technology & Service Providers" given a photo to its right
+   (2026-09-28, client request): a crew hoisting a valve into place inside
+   a treatment facility, matched from the client's source document. This
+   section sits below (and is unrelated to) .who-we-help-two-col; it's its
+   own plain .content-section, not part of that grid.
+
+   Photo raised to align with the heading, same day, per a client
+   reference screenshot: the first pass matched the homepage's "The hard
+   part is making it work." section (.home-hardpart-row), with the photo
+   starting below a full-width heading row — leaving the space beside the
+   heading empty. The client's reference showed the photo starting at the
+   same top edge as the heading instead.
+
+   Heading centered and re-spaced to match "Utilities & Infrastructure
+   Owners," same day, per a follow-up client request: the heading and text
+   were originally two separate grid items (in their own "heading"/"text"
+   rows) with the photo spanning both rows to sit beside them — but with a
+   much taller photo than the heading+text content, the grid's auto row
+   sizing stretched the "heading" row's track to make room for the photo,
+   inflating the heading-to-text gap to ~80px even though their own
+   margin/row-gap totaled 44px. Restructured so the heading and text are
+   grouped in a single .tech-providers-content wrapper (the same plain-div,
+   stacked-normally approach .who-we-help-utilities already uses below),
+   sitting in one grid row beside the photo — .tech-providers-content's
+   own height doesn't affect the photo's size (fixed by its own
+   aspect-ratio) or vice versa, so the heading-to-text gap is now set
+   directly via .cards-heading.tech-providers-heading's margin-bottom
+   rather than being at the mercy of the row track's auto-sizing. Set to
+   the same 14px as .cards-heading.who-we-help-utilities-heading, and the
+   heading's text-align override removed so it falls back to
+   .cards-heading's own centered default, matching Utilities' heading
+   too.
+
+   Photo moved closer to the section above, and the row vertically
+   centered, same day, per a client-supplied reference mockup: the section
+   was sitting a full 140px below "Utilities & Infrastructure Owners"
+   (the .who-we-help-two-col wrapper's own 70px bottom padding, plus this
+   section's inherited 70px top padding from the shared .content-section
+   rule) — the reference showed it much closer, so `.tech-providers` gets
+   its own `padding-top: 14px` override, bringing the gap down to 84px.
+   The reference also showed the photo's top edge sitting above the
+   heading rather than level with it, with roughly even space left over
+   above and below the shorter text column — `align-items` on the row
+   switched from `start` to `center` so `.tech-providers-content` (the
+   shorter of the two items) centers vertically against the taller photo
+   instead of both starting at the same top edge. */
+.tech-providers {
+  text-align: left;
+  padding-top: 14px;
+}
+
+.tech-providers-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "content photo";
+  column-gap: 48px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tech-providers-content {
+  grid-area: content;
+}
+
+/* Compound selector (matches .cards-heading.tech-providers-heading on the
+   element itself) so this ties the specificity of the base ".cards-heading"
+   rule below instead of losing to it — same fix as
+   .cards-heading.who-we-help-utilities-heading above. A single-class
+   ".tech-providers-heading" selector here would be silently overridden. */
+.cards-heading.tech-providers-heading {
+  margin-bottom: 14px;
+}
+
+.tech-providers-content .prose-block {
+  max-width: none;
+  margin: 0;
+}
+
+/* Source photo is a portrait-orientation crop (crew hoisting a valve,
+   shot indoors), unlike the site's other paired-with-text photos, which
+   are all landscape and roughly match their text column's height at full
+   width. Left uncropped, its full portrait height towers over the three
+   short paragraphs beside it. Cropped here to a landscape aspect ratio
+   closer in proportion to the text block, favoring the upper portion of
+   the frame (the crew and valve) over the motor/belt equipment in the
+   foreground at the very bottom of the source photo. */
+.tech-providers-photo {
+  grid-area: photo;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 15%;
+  border-radius: 8px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 860px) {
+  .tech-providers-row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "photo";
   }
 }
 
@@ -1661,54 +1813,6 @@ body.modal-open {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
 
-/* Credential badge + pull-quote, side by side, matching the client's own
-   reference mockup (2026-09-24, third pass on this row — its own layout
-   is unchanged by the float restructure just above; only its parent
-   changed, from the removed .founder-header-text to .founder-block
-   itself, and it now sits beside the photo via the float wrap described
-   above rather than a flex column). The reference shows the badge
-   sitting snug beside the quote with no surrounding white box, so the
-   badge's own white backing plate/padding is zeroed out here too
-   (harmless either way against this page's white background, but the
-   padding was eating into the narrow space available for the quote).
-   The quote's font-size is reduced accordingly — see the entry below —
-   to still wrap onto exactly two lines in the ~330px left over next to
-   the smaller badge, matching the reference's proportions. */
-.founder-badge-quote-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin-top: 14px;
-  margin-bottom: 28px;
-}
-
-.founder-badge-quote-row .founder-credential-badge {
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.founder-badge-quote-row .founder-credential-badge img {
-  width: 150px;
-}
-
-/* min-width forces the quote onto its own line, below the badge, once
-   the available width beside the floated photo gets too narrow to hold
-   both side by side at the current font-size (a smaller-scale version
-   of the same "squeeze zone" fix used elsewhere on this row: without a
-   floor here, there's a band of column widths — this available width
-   shrinks continuously as the viewport narrows, well before the 560px
-   breakpoint that drops the float on phones — where badge and quote
-   still share a row but too little width is left for the quote to wrap
-   to two lines at 32px). */
-.founder-badge-quote-row .founder-quote {
-  flex: 1;
-  min-width: 330px;
-  margin-bottom: 0;
-}
-
 @media (max-width: 560px) {
   /* Below 560px the photo drops its float and stacks full-width above
      the name/badge/quote/bio prose instead of having them wrap around
@@ -1720,42 +1824,18 @@ body.modal-open {
     margin: 0 0 20px;
   }
 
-  /* The quote wraps to its own line below the badge on phones (the
-     .founder-badge-quote-row min-width rule above already forces that
-     once the column gets this narrow), so the 32px desktop size (set
-     above) would still be a bit large relative to the badge here.
-     Stepped down to 1.5rem/24px so the two stay in proportion. */
+  /* The 32px desktop size (set above) reads a bit large next to the
+     phone-width photo/name column here. Stepped down to keep it in
+     proportion — and, since the switch from Playfair Display to
+     Montserrat (2026-09-28, wider glyphs at the same size), down further
+     to 1.0625rem/17px, the largest size that still keeps "Asset
+     management is not sexy." (the text before the quote's own <br>) on
+     one line down to a 320px-wide screen; at the old 1.5rem/24px the
+     first sentence alone now wraps to two lines, pushing the quote to
+     three lines total instead of the intended two. */
   .founder-quote {
-    font-size: 1.5rem;
+    font-size: 1.0625rem;
   }
-
-  /* The badge's fixed 150px desktop width (set above) is oversized
-     next to a phone-width photo/name column — shrunk to match. */
-  .founder-badge-quote-row .founder-credential-badge img {
-    width: 120px;
-  }
-}
-
-/* AMP / IAM member credential badges, placed directly under the founder's
-   name (moved here 2026-09-23 from inline in the bio prose, where it
-   first shipped). The source graphic has a transparent background but
-   its logo/text render in dark ink, so it needs a light backing plate to
-   stay legible against this section's dark background (unlike the
-   founder photo above, which already has an opaque dark background of
-   its own and sits directly on the page). */
-.founder-credential-badge {
-  display: inline-block;
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 12px 18px;
-  margin: 4px 0 16px;
-}
-
-.founder-credential-badge img {
-  display: block;
-  width: 200px;
-  max-width: 100%;
-  height: auto;
 }
 
 .founder-closing {
@@ -1836,16 +1916,22 @@ button.btn-blue {
    closing CTA, and briefly Services/Who We Help's before those were
    simplified to plain buttons) — the client asked for "a regular blue
    rectangle" instead of that card treatment, so this is its own class
-   rather than a reuse of .cta-blue-block, with no border-radius and no
-   box-shadow, everything else (background, white text, sizing/padding)
-   matching it. Vertical padding (space above/below the text) was reduced
-   25% from .cta-blue-block's own 56px/40px figures — 42px desktop, 30px
-   phones — per a same-day follow-up; horizontal padding is unchanged. */
+   rather than a reuse of .cta-blue-block, with no border-radius,
+   everything else (background, white text, sizing/padding) matching it.
+   Vertical padding (space above/below the text) was reduced 25% from
+   .cta-blue-block's own 56px/40px figures — 42px desktop, 30px phones —
+   per a same-day follow-up; horizontal padding is unchanged. A follow-up
+   request the same day asked for the shadow effect after all — added
+   using .cta-blue-block's own box-shadow value for consistency with the
+   rest of the site's card shadows, while still leaving out the border-
+   radius (rectangle corners), which the client's "regular blue rectangle"
+   note was really about. */
 .contact-blue-rect {
   background: #35536B;
   max-width: 720px;
   margin: 0 auto;
   padding: 42px 48px;
+  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
 }
 
 .contact-blue-rect .cards-heading {

@@ -1,13 +1,21 @@
-/* Gray Oak Advisory — brand theme: charcoal/slate + gold, Playfair Display + Inter */
+/* Gray Oak Advisory — brand theme: charcoal/slate + gold, Lora + Inter */
 
 /* ital,wght axis syntax: 0=roman, 1=italic. Roman 600/700 are the page
-   headings; italic 400 was added 2026-09-17 for the footer tagline, which
-   is normal-weight and italic — without it the browser silently falls
-   back to Georgia's italic for that one line instead of Playfair's own. */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
+   headings; italic 400 covers the footer tagline and founder closing line
+   (normal-weight italic), and italic 700 covers the founder pull-quote
+   (bold italic) — without both, the browser would either fall back to a
+   system serif's italic for those lines or synthesize ("faux") bold on
+   the 400-weight italic instead of using Lora's own real bold italic
+   glyphs. Switched from Montserrat to Lora 2026-09-28 per client request
+   (Montserrat itself had replaced the original Playfair Display earlier
+   the same day) — same weight/style axis kept each time, so every
+   existing heading, hero title, and italic accent line (footer tagline,
+   founder quote, founder closing) needed no other CSS changes beyond
+   this import and the --font-heading value below. */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Lora', Georgia, serif;
   --font-body: 'Inter', -apple-system, sans-serif;
 
   --color-bg-page: #FFFFFF;
