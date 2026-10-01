@@ -52,14 +52,14 @@
            "stays on the page" submission is wanted instead (no email
            app popping open), swap this block for a form service like
            Formspree — everything else on the page stays the same. -->
-      <form class="contact-form" id="contact-form" novalidate>
+      <form class="contact-form" id="contact-form">
         <div class="form-field">
           <label for="contact-name">Name</label>
           <input type="text" id="contact-name" name="name" autocomplete="name" required>
         </div>
         <div class="form-field">
           <label for="contact-org">Organization</label>
-          <input type="text" id="contact-org" name="organization" autocomplete="organization">
+          <input type="text" id="contact-org" name="organization" autocomplete="organization" required>
         </div>
         <div class="form-field">
           <label for="contact-email">Email</label>

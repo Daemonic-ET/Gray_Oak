@@ -1918,6 +1918,42 @@ body.modal-open {
   color: #fff;
 }
 
+/* "Other Insights" section (2026-10-01, client request, sample content):
+   a second row of article-preview cards below Featured Insights, each
+   linking to the same sample article page (insight-article.html) since
+   that's the only real article on the site so far. Reuses Featured
+   Insights' Steel Blue background/white text treatment — the same
+   #35536B / #61788B hover pair — but shrunk down to read as smaller,
+   denser blocks: tighter padding, a lower min-height, and a smaller
+   heading size. Each card originally also carried a one-line sample
+   teaser paragraph; that was dropped the same day, per a follow-up
+   request, specifically to make these blocks smaller still — titles and
+   the "Read More" link are now each card's only content, so the
+   min-height dropped further to match (was 96px, with the teaser).
+   Scoped to `.cards-grid--other-insights` so Featured Insights' own
+   (larger) cards above it, the six interactive topic cards higher up
+   the page, and every card on About/Services/Who We Help are all
+   unaffected. */
+.cards-grid--other-insights .card {
+  background: #35536B;
+  color: #fff;
+  padding: 16px 20px;
+  min-height: 52px;
+}
+
+.cards-grid--other-insights .card:hover {
+  background: #61788B;
+}
+
+.cards-grid--other-insights .card h3 {
+  font-size: 0.95rem;
+}
+
+.cards-grid--other-insights .card-readmore {
+  color: #fff;
+  font-size: 0.8rem;
+}
+
 .card-readmore {
   color: var(--color-accent);
   font-weight: 600;
@@ -2058,4 +2094,149 @@ button.btn-blue {
 
 .contact-company-location {
   color: var(--color-text-dark);
+}
+
+/* Sample Insight article page (2026-09-30, client request): a single full-
+   article page — insight-article.html — built as a template/example for
+   what one of Insights' "Featured Insights" cards should link to once real
+   articles exist (their "Read More" links currently point to "#" as
+   placeholders; this sample is now linked from the first one, "When the
+   Asset Management Plan Meets Operations"). Reuses the existing
+   .hero--sub.hero--center-title + .page-content-wrap + .prose-block +
+   .cta-block + footer pattern from page-template-standard.html — only
+   five small article-specific rules were added below, everything else
+   (hero, heading, prose, closing CTA, footer, back-to-top, nav) is the
+   same shared CSS every other page already uses. */
+
+/* .hero-eyebrow has no text-align of its own (it didn't need one before
+   this page existed, since its only other use — the homepage's full-size
+   hero — is left-aligned by default). This page's hero uses
+   .hero--center-title, which already centers the h1 itself; this scoped
+   rule centers the eyebrow tag the same way, without touching
+   .hero-eyebrow's base rule (which stays left-aligned wherever
+   .hero--center-title isn't present, e.g. the homepage). */
+.hero--center-title .hero-eyebrow {
+  text-align: center;
+}
+
+/* Hero title widened from the shared .hero h1's 700px cap so this
+   particular title ("When the Asset Management Plan Meets Operations")
+   wraps to 2 lines instead of 3 at wide desktop widths (2026-10-01,
+   client request) — at 1400px the shared 700px cap split it across three
+   short, uneven lines; 760px was the smallest width that reliably
+   produced a clean 2-line break there (bisected via Playwright), while
+   leaving every narrower width unaffected, since the hero's own
+   available width already constrains the title below 700px on tablet
+   and phone screens regardless of this higher cap. Written as the
+   compound selector `.hero .article-hero-title` (specificity 0,2,0)
+   rather than the single class alone (0,1,0) — caught during
+   verification, since `.hero h1`'s own 700px cap (0,1,1) would otherwise
+   silently win the tie and the override would never take effect, the
+   same class of cascade bug fixed elsewhere on the site (see
+   .cards-heading.tech-providers-heading in the project's changelog). */
+.hero .article-hero-title {
+  max-width: 760px;
+}
+
+/* Byline/date/read-time line — moved into the white content area
+   (2026-09-30, client request) from its original spot in the hero, directly
+   under the title. It now sits inside .prose-block as the first line above
+   the body copy, so it inherits that block's left alignment and max-width
+   automatically. On the hero's dark background it reused
+   --color-text-on-dark-muted; now that it's on the page's white background
+   it needs its own muted-but-readable color instead — #5A5F66 was checked
+   against WCAG AA (6.4:1 on white, comfortably over the 4.5:1 minimum for
+   normal text), rather than reusing --color-text-dark at full strength,
+   which would make it compete with the article's actual body copy below. */
+.article-meta {
+  color: #5A5F66;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  text-align: right;
+}
+
+/* "Back to Insights" link — sits at the end of the article body (moved
+   there, and right-aligned, 2026-09-30, client request; originally sat
+   above the body, left-aligned). Still lives inside the same .prose-block
+   as the body copy rather than a separate wrapper, so it shares that
+   block's max-width; the explicit right alignment here is what overrides
+   .prose-block's own left-aligned default for just this one line. Steel
+   Blue, matching the site's other inline text links (e.g. .contact-direct
+   a). */
+.article-back-link {
+  margin-top: 36px;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.article-back-link a {
+  color: #35536B;
+  font-weight: 600;
+}
+
+/* In-article subheadings. Left-aligned (unlike the centered .cards-heading
+   used for section titles elsewhere), smaller, and kept in the page's
+   standard dark text color rather than gold — this is body copy the
+   reader is meant to scan quickly while reading, not a page-level section
+   title, and dark-on-white avoids adding another gold-on-white contrast
+   pairing to the ones already flagged in the 2026-09-30 accessibility
+   audit (see the project's changelog doc). */
+.article-subhead {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  text-align: left;
+  color: var(--color-text-dark);
+  margin: 36px 0 14px;
+}
+
+/* In-article pull quote. Same italic serif treatment as the site's other
+   pull-quote (.founder-quote on About), but left-aligned with a gold left
+   border rather than centered and gold-colored — the accent color carries
+   the "this is a quote" signal through the border instead of the text
+   color, again to avoid adding a new gold-on-white text pairing. */
+.article-pull-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--color-text-dark);
+  border-left: 3px solid var(--color-accent);
+  padding-left: 20px;
+  margin: 28px 0;
+}
+
+/* Article body boxed in a blue rectangle (2026-10-01, client request):
+   everything below the byline except the "Back to Insights" link — every
+   paragraph, subheading, and the pull quote — sits inside a flat Steel
+   Blue rectangle, the same treatment as the Contact page's "Start a
+   Conversation" intro (.contact-blue-rect: flat fill, no border-radius,
+   drop shadow) rather than the rounded .cta-blue-block card used
+   elsewhere. Built as its own class rather than a reuse of
+   .contact-blue-rect, since that one caps out at a 720px max-width sized
+   for a short one-line CTA — this box needs to run the full 760px width
+   of .prose-block to hold the whole article. The byline (.article-meta)
+   stays outside it, on the plain white background, per the client's
+   request; the "Back to Insights" link sat inside the box at first too,
+   then was moved back out, directly below it, the same day — see the
+   archive doc. Text colors inside are overridden to white
+   (.article-subhead and .article-pull-quote would otherwise keep their
+   standard dark color); the pull quote's gold left border is left as-is,
+   reading clearly against the blue fill. */
+.article-blue-rect {
+  background: #35536B;
+  padding: 42px 48px;
+  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
+  margin-top: 20px;
+}
+
+.article-blue-rect p,
+.article-blue-rect .article-subhead,
+.article-blue-rect .article-pull-quote {
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .article-blue-rect {
+    padding: 30px 24px;
+  }
 }

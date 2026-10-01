@@ -177,7 +177,51 @@ document.addEventListener('DOMContentLoaded', function () {
   // already filled into a message addressed to CONTACT_EMAIL above. Only
   // runs on contact.html — every other page has no #contact-form, so
   // this block is skipped everywhere else.
+  //
+  // All four fields (Name, Organization, Email, "What are you working
+  // on?") are `required` in the HTML, and the form no longer carries
+  // `novalidate` (2026-10-01, client request — it previously did, which
+  // made `required` purely decorative and let an empty or malformed
+  // submission through regardless). With `novalidate` gone, the browser
+  // now runs its own native constraint validation on submit — blocking
+  // it, focusing the first invalid field, and showing its built-in
+  // "please fill out this field" messaging for an empty field — and
+  // only dispatches this 'submit' event once every field passes,
+  // including the Email field's built-in type="email" format check. No
+  // extra validation code is needed here as a result; every value read
+  // below is guaranteed non-empty and, for email, already address-
+  // shaped by the time this handler runs.
   var contactForm = document.getElementById('contact-form');
+
+  // Email field's own browser-default format message ("Please include
+  // an '@' in the email address", wording varies by browser) replaced
+  // with a plain, consistent one (2026-10-01, client request): the
+  // 'invalid' event fires whenever this field fails constraint
+  // validation — on an empty field that's the `required` check
+  // (validity.valueMissing), on a non-empty but malformed one it's the
+  // `type="email"` format check (validity.typeMismatch). Only the
+  // format case gets the custom message; an empty field still falls
+  // through to the browser's own "please fill out this field" wording,
+  // same as every other required field on the form. The 'input'
+  // listener clears any custom message on every keystroke, which is
+  // required by the Constraint Validation API — setCustomValidity()
+  // otherwise keeps a field invalid even after it's corrected, since
+  // the browser doesn't clear a custom message on its own.
+  var emailInput = document.getElementById('contact-email');
+
+  if (emailInput) {
+    emailInput.addEventListener('invalid', function () {
+      if (emailInput.validity.typeMismatch) {
+        emailInput.setCustomValidity('Please provide a valid email address.');
+      } else {
+        emailInput.setCustomValidity('');
+      }
+    });
+
+    emailInput.addEventListener('input', function () {
+      emailInput.setCustomValidity('');
+    });
+  }
 
   if (contactForm) {
     contactForm.addEventListener('submit', function (event) {
@@ -188,10 +232,10 @@ document.addEventListener('DOMContentLoaded', function () {
       var email = document.getElementById('contact-email').value.trim();
       var message = document.getElementById('contact-message').value.trim();
 
-      var subject = 'New inquiry from ' + (name || 'the Gray Oak website');
+      var subject = 'New inquiry from ' + name;
       var body = [
         'Name: ' + name,
-        'Organization: ' + (organization || '(not provided)'),
+        'Organization: ' + organization,
         'Email: ' + email,
         '',
         message
