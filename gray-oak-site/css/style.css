@@ -70,35 +70,6 @@ a { text-decoration: none; color: inherit; }
   border-bottom: 1px solid var(--color-border);
 }
 
-/* index2.html only (2026-09-17): header background swapped to the gold
-   accent color instead of the site-wide white/page background. Scoped to
-   .site-header--gold (added only on that page's header) so index.html and
-   the rest of the site keep the plain header. Nav links and the Contact
-   button switch to --color-on-accent (the charcoal already used for text
-   on gold elsewhere, e.g. the gold CTA buttons) since the default gold nav
-   text would otherwise disappear against a gold background; the button's
-   hover state is inverted to match. The mobile dropdown menu (.nav-links--
-   open) keeps its own white background regardless, so its dark nav text
-   needs no change. */
-.site-header--gold {
-  background: var(--color-accent);
-  border-bottom-color: var(--color-accent);
-}
-
-.site-header--gold .nav-links a {
-  color: var(--color-on-accent);
-}
-
-.site-header--gold .btn-outline {
-  border-color: var(--color-on-accent);
-  color: var(--color-on-accent);
-}
-
-.site-header--gold .btn-outline:hover {
-  background: var(--color-on-accent);
-  color: var(--color-accent);
-}
-
 .logo img { height: 48px; }
 
 .nav-right {
@@ -119,13 +90,38 @@ a { text-decoration: none; color: inherit; }
   color: var(--color-text-dark);
 }
 
-.nav-links a:hover { color: var(--color-accent); }
+/* #8A6D3A ("copper gold") rather than var(--color-accent) (2026-10-01) —
+   the darker, more bronze gold worked out during the 2026-10-01 contrast
+   preview specifically for gold text on white (~4.85:1, passing WCAG
+   1.4.3's 4.5:1 minimum). The current accent, Champagne Gold (#D9B873),
+   is lighter than the old Gold Leaf and reads even less distinctly here
+   (~1.9:1) — this was the one gold-on-white pairing still failing after
+   the day's other color changes; see the Site-wide contrast re-audit
+   entry in the archive doc. Hardcoded rather than added as a new
+   --color-* token, matching how Steel Blue is written directly wherever
+   it's used on the site. */
+.nav-links a:hover { color: #8A6D3A; }
 
+/* Went through three changes on 2026-10-01 before landing here: briefly
+   solid gold with dark gray text (matching .btn-solid), then white with a
+   gold border and gold text, then finally — this version — white with a
+   gold border and dark gray text, after the client asked for the text
+   color specifically to switch from gold to dark gray while keeping the
+   white fill and gold border. See the archive doc for the full
+   back-and-forth. `background` is set explicitly to --color-bg-page
+   (white) rather than left unset/transparent as it originally was, so the
+   button reads as a true white rectangle regardless of what it's sitting
+   on. Hover's text color was changed from white to the same dark gray for
+   the same reason the resting state changed — a gold-filled hover with
+   white text was the one place on the site that pairing would otherwise
+   still appear, and dark gray on gold also matches .btn-solid's own
+   look. */
 .btn-outline {
   display: inline-block;
   padding: 10px 26px;
   border: 1.5px solid var(--color-accent);
-  color: var(--color-accent);
+  background: var(--color-bg-page);
+  color: var(--color-on-accent);
   font-weight: 600;
   border-radius: 2px;
   transition: background 0.2s ease, color 0.2s ease;
@@ -133,7 +129,7 @@ a { text-decoration: none; color: inherit; }
 
 .btn-outline:hover {
   background: var(--color-accent);
-  color: var(--color-bg-page);
+  color: var(--color-on-accent);
 }
 
 /* Solid Steel Blue button, white text — same shape/sizing as .btn-outline
@@ -268,6 +264,11 @@ a { text-decoration: none; color: inherit; }
   font-size: 1.05rem;
 }
 
+/* Briefly changed to a white background with a gold border/text on
+   2026-10-01, then reverted the same day once the client clarified that
+   request was actually about .btn-outline (see the archive doc) — back
+   to its original solid-gold-rectangle, dark-gray-text look, now also
+   shared by .btn-outline above. */
 .btn-solid {
   display: inline-block;
   padding: 14px 34px;
@@ -343,37 +344,6 @@ a { text-decoration: none; color: inherit; }
   background: var(--color-bg-page);
   padding: 70px 32px 20px;
   text-align: center;
-}
-
-/* index2.html only (2026-09-17): a duplicate homepage with the content-area
-   background swapped to the same dark gradient the footer uses, instead of
-   the plain white every other page has. Scoped to .home-content-bg--dark
-   (added only on that page's wrapper div) so index.html and the rest of
-   the site are untouched. Recolors the pipeline heading/labels and cards
-   heading to light text and the pipeline icons to the gold accent, the
-   same treatment already used for the dark .icon-strip section above, so
-   they stay readable against the dark background. The insight cards
-   already use a dark green fill with light text, so they need no change. */
-.home-content-bg--dark {
-  background: var(--color-bg-footer);
-}
-
-.home-content-bg--dark .pipeline-section,
-.home-content-bg--dark .cards-section {
-  background: transparent;
-}
-
-.home-content-bg--dark .pipeline-heading,
-.home-content-bg--dark .cards-heading {
-  color: #fff;
-}
-
-.home-content-bg--dark .pipeline-item {
-  color: var(--color-accent);
-}
-
-.home-content-bg--dark .pipeline-item span {
-  color: var(--color-text-on-dark-muted);
 }
 
 .pipeline-heading {
@@ -1662,6 +1632,12 @@ body.modal-open {
 }
 
 .cta-blue-block .btn-outline {
+  /* background: transparent added 2026-10-01, when the base .btn-outline
+     rule picked up an explicit white background (previously just unset/
+     transparent) — without this override, that white would show as a
+     solid white box against the Steel Blue card instead of the
+     borderless/see-through look this variant has always had. */
+  background: transparent;
   border-color: #fff;
   color: #fff;
 }
@@ -1800,9 +1776,16 @@ body.modal-open {
   margin-bottom: 8px;
 }
 
+/* Founder name, pull-quote, and closing line (below) were gold
+   (var(--color-accent)) until 2026-10-01, when the client asked to
+   replace the gold text specifically in this section with Steel Blue —
+   the same #35536B already live elsewhere on the site (Featured Insights
+   cards, the blue CTA/intro rectangles, Services'/Who We Help's closing
+   buttons) — hardcoded here to match how those other rules reference it,
+   since there's no shared --color-steel-blue token yet. */
 .founder-name {
   font-weight: 700;
-  color: var(--color-accent);
+  color: #35536B;
   margin-bottom: 10px;
   font-size: 1.05rem;
 }
@@ -1813,7 +1796,7 @@ body.modal-open {
   font-weight: 700;
   font-size: 2rem;
   margin-bottom: 24px;
-  color: var(--color-accent);
+  color: #35536B;
 }
 
 /* Founder photo, floated left so the name, credential badge, pull-quote,
@@ -1877,7 +1860,7 @@ body.modal-open {
   font-style: italic;
   font-size: 1.15rem;
   margin-top: 28px;
-  color: var(--color-accent);
+  color: #35536B;
 }
 
 /* Insights page — real article previews, distinct from the six topic
@@ -2053,7 +2036,15 @@ button.btn-blue {
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--color-accent);
+  /* Was gold (var(--color-accent)) until 2026-10-01, when the client
+     asked for the focus color to be Steel Blue instead — hardcoded to
+     #35536B to match how Steel Blue is written everywhere else it's used
+     on the site, since there's no shared --color-steel-blue token yet.
+     This is still a color-only focus indicator (outline: none above,
+     nothing but the border color changes) — a pre-existing WCAG 2.4.7/
+     1.4.1 item flagged in the 2026-09-30 accessibility audit and not
+     addressed by this change; see the Still open list. */
+  border-color: #35536B;
 }
 
 .contact-form textarea {

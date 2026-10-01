@@ -27,15 +27,26 @@
   --color-text-dark: #2E3338;
   --color-text-on-dark-muted: #C9CCCF;
 
-  --color-accent: #B99B5E;       /* Gold Leaf */
+  /* Champagne Gold (2026-10-01, replaces Gold Leaf #B99B5E site-wide): the
+     lighter of the two gold values worked out for the 2026-10-01 contrast-
+     fix preview, where it was scoped to just the Deep Green card text
+     (~5.1:1 there). Applied here as the single site-wide gold instead,
+     per client request — this improves the Deep Green-card pairing but
+     makes the gold-on-white pairing (nav links, outline-button text,
+     hero title, etc.) measurably worse, not better: #B99B5E read ~2.65:1
+     on white, and this lighter, brighter gold reads only ~1.9:1 — further
+     from the WCAG 1.4.3 4.5:1 minimum, not closer. See the Grammar and
+     accessibility audit and Champagne Gold applied site-wide entries in
+     the archive doc. */
+  --color-accent: #D9B873;
   --color-on-accent: #2E3338;
 
   --color-pipeline-icon: #35536B; /* Steel Blue */
-  --color-pipeline-line: #B99B5E;
+  --color-pipeline-line: #D9B873;
 
   --color-card-bg: #2F4A3F;       /* Deep Green */
   --color-card-bg-hover: #3D604F; /* Deep Green, lightened for hover highlight */
-  --color-card-text: var(--color-accent); /* Gold Leaf — card title/body text */
+  --color-card-text: var(--color-accent); /* Champagne Gold — card title/body text */
 
   /* Hero background: real tree-ring texture with a slate overlay on top so
      white headline text stays readable no matter where it falls on the image. */

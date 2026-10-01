@@ -1,0 +1,52 @@
+/* Contrast fix preview (2026-10-01) — scoped entirely to body.contrast-demo
+   (index-contrast-demo.html only), so the live site's shared
+   --color-accent (#B99B5E) and every page that uses it are untouched.
+
+   Background: the 2026-09-30 accessibility audit found the single shared
+   gold accent fails WCAG 1.4.3 (4.5:1 for normal text) in two places —
+   gold text on white, and gold text on the Deep Green card background.
+   One gold value can't pass both at once (white needs a darker gold,
+   Deep Green needs a lighter one), so this preview splits it into two
+   context-specific tokens and applies each only where that background
+   actually occurs on the homepage.
+
+   Ratios below were computed from the WCAG relative-luminance formula,
+   not eyeballed, and re-verified on this page via Playwright. */
+
+body.contrast-demo {
+  --color-gold-on-light: #8A6D3A; /* ~4.85:1 on white (#FFFFFF) */
+  --color-gold-on-dark: #D9B873;  /* ~5.1:1 on Deep Green (#2F4A3F) */
+}
+
+/* ---- Gold text on white: header nav + the white-background .btn-outline
+   buttons ("Explore Our Services", "Read Our Insights", "Who We Help").
+   (.cta-blue-block's own .btn-outline is already overridden to white
+   elsewhere in style.css, so it's unaffected either way.) ---- */
+body.contrast-demo .nav-links a:hover,
+body.contrast-demo .nav-contact-mobile a,
+body.contrast-demo .btn-outline {
+  color: var(--color-gold-on-light);
+}
+
+body.contrast-demo .btn-outline {
+  border-color: var(--color-gold-on-light);
+}
+
+/* ---- Gold text on the Deep Green pillar cards, and the modal/hover-
+   popover opened from them, which share the same Deep Green background
+   and the same gold text/icon color. .card-modal-body h3/.card-modal-close
+   set color explicitly (not just inherited from .card-modal), so each
+   needs its own override too. ---- */
+body.contrast-demo .pillar-cards .card,
+body.contrast-demo .card-modal,
+body.contrast-demo .card-modal-close,
+body.contrast-demo .card-modal-body h3,
+body.contrast-demo .card-popover {
+  color: var(--color-gold-on-dark);
+}
+
+body.contrast-demo .pillar-cards .card-icon,
+body.contrast-demo .card-modal .card-icon,
+body.contrast-demo .card-popover .card-icon {
+  color: var(--color-gold-on-dark);
+}
