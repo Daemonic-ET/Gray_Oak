@@ -369,6 +369,20 @@ a { text-decoration: none; color: inherit; }
 .prose-block p:last-child { margin-bottom: 0; }
 .prose-block strong { color: var(--color-pipeline-icon); }
 
+/* Bullet list inside a .prose-block (2026-10-04, Privacy page rewrite):
+   .prose-block previously only ever held plain paragraphs, so there was
+   no list styling for it — only .card-modal-body (a card's expanded
+   detail copy) had one. Added here, matching that same spacing/size
+   rather than introducing a third variant. */
+.prose-block ul {
+  margin: 0 0 20px;
+  padding-left: 22px;
+}
+.prose-block ul:last-child { margin-bottom: 0; }
+.prose-block li {
+  margin-bottom: 6px;
+}
+
 /* Diagram image dropped into a .prose-block (Services page, 2026-09-24):
    centered under the paragraph text above it rather than stretched to
    the full column width or left-aligned like the copy. */
@@ -1899,6 +1913,15 @@ body.modal-open {
 
 .cards-grid--featured .card-readmore {
   color: #fff;
+}
+
+/* Featured Insights description text left-aligned (2026-10-05, client
+   request): the card's `p` inherits `text-align: center` from the
+   `.content-section` wrapper on insights.html, which centers these
+   longer description paragraphs. Scoped to just the `p` so the heading
+   and "Read More" link keep their existing centered treatment. */
+.cards-grid--featured .card p {
+  text-align: left;
 }
 
 /* "Other Insights" section (2026-10-01, client request, sample content):
