@@ -1191,7 +1191,14 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 860px) {
-  .nav-links, .site-header .btn-outline { display: none; }
+  /* Hides the header's blue Contact button below 860px (2026-10-05 fix):
+     this used to read .btn-outline, matching the nav Contact button's
+     class at the time. It was switched to .btn-blue site-wide earlier
+     this project (see the archive doc), so this selector stopped
+     matching anything and the blue button stayed visible on mobile —
+     redundant with the "Contact" link already shown in the hamburger
+     dropdown via .nav-contact-mobile below 899px. */
+  .nav-links, .site-header .btn-blue { display: none; }
   .nav-toggle { display: flex; }
   .cards-grid { grid-template-columns: 1fr; }
   .card--featured { grid-column: 1; grid-row: auto; }
