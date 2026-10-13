@@ -384,13 +384,17 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* Diagram image dropped into a .prose-block (Services page, 2026-09-24):
-   centered under the paragraph text above it rather than stretched to
-   the full column width or left-aligned like the copy. */
+   sits under the paragraph text above it, left-aligned like the copy.
+   Originally capped at max-width: 408px, narrower than the text column
+   itself; that cap was removed 2026-10-12 per client request so the
+   image spans the exact same width as the paragraphs above it (the
+   image file itself was swapped for one matching that wider box the
+   same day — see the asset-replacement entries in the visual brand
+   doc). */
 .prose-diagram {
   display: block;
   width: 100%;
-  max-width: 408px;
-  margin: 32px auto 0;
+  margin: 32px 0 0;
 }
 
 /* Services diagram centered in the leftover vertical space beside the
@@ -618,7 +622,7 @@ a { text-decoration: none; color: inherit; }
   display: block;
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.175);
 }
 
 /* "Utilities & Infrastructure Owners" moved under the photo (2026-09-28,
@@ -797,7 +801,7 @@ a { text-decoration: none; color: inherit; }
   object-fit: cover;
   object-position: center 15%;
   border-radius: 8px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.175);
 }
 
 @media (max-width: 860px) {
@@ -912,13 +916,13 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
+  box-shadow: 0 5px 11px rgba(46, 51, 56, 0.375);
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .card:hover {
   background: var(--color-card-bg-hover);
-  box-shadow: 0 14px 28px rgba(46, 51, 56, 0.85);
+  box-shadow: 0 7px 14px rgba(46, 51, 56, 0.425);
   transform: translateY(-3px);
 }
 
@@ -1223,7 +1227,7 @@ a { text-decoration: none; color: inherit; }
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(46, 51, 56, 0.35);
+  box-shadow: 0 3px 8px rgba(46, 51, 56, 0.175);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -1337,7 +1341,7 @@ a { text-decoration: none; color: inherit; }
   min-height: 100%;
   background: var(--color-card-bg);
   border-radius: 6px;
-  box-shadow: 0 20px 48px rgba(22, 22, 22, 0.45);
+  box-shadow: 0 10px 24px rgba(22, 22, 22, 0.225);
   padding: 26px 24px;
   z-index: 20;
   opacity: 0;
@@ -1390,7 +1394,7 @@ body.modal-open {
   overflow-y: auto;
   border-radius: 8px;
   padding: 44px 36px 36px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .card-modal-close {
@@ -1528,7 +1532,7 @@ body.modal-open {
   display: block;
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.175);
   margin-top: 12px;
 }
 
@@ -1578,7 +1582,7 @@ body.modal-open {
   display: block;
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.175);
 }
 
 @media (max-width: 860px) {
@@ -1641,7 +1645,7 @@ body.modal-open {
   max-width: 720px;
   margin: 0 auto;
   padding: 56px 48px;
-  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
+  box-shadow: 0 5px 11px rgba(46, 51, 56, 0.375);
 }
 
 .cta-blue-block .cards-heading {
@@ -1848,7 +1852,7 @@ body.modal-open {
   width: 100%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.175);
 }
 
 @media (max-width: 560px) {
@@ -2014,7 +2018,7 @@ button.btn-blue {
   max-width: 720px;
   margin: 0 auto;
   padding: 42px 48px;
-  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
+  box-shadow: 0 5px 11px rgba(46, 51, 56, 0.375);
 }
 
 .contact-blue-rect .cards-heading {
@@ -2246,7 +2250,7 @@ button.btn-blue {
 .article-blue-rect {
   background: #35536B;
   padding: 42px 48px;
-  box-shadow: 0 10px 22px rgba(46, 51, 56, 0.75);
+  box-shadow: 0 5px 11px rgba(46, 51, 56, 0.375);
   margin-top: 20px;
 }
 
